@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-const auth = (a, b) => {
-  return a + b;
+const auth = () => {
+  console.log("busy");
 };
 
 module.exports = auth;

@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const auth = require("./middleware/auth");
-require("./db");
+require("./db").createTables();
 require("dotenv").config();
 
 const app = express();
