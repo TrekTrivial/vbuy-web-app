@@ -1,0 +1,74 @@
+/* COLOR PALETTE */
+/* #ece14e */
+/* #f9ffd7 */
+/* #4e525f */
+/* #ffcad4 */
+/* #baacbd */
+
+body {
+  font-family: Helvetica;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 10px 0;
+
+  background: rgb(225, 231, 195);
+}
+
+.logo {
+  width: 180px;
+  margin-left: 20px;
+  padding-top: 4.8px;
+  transition: all 0.3s;
+}
+
+.navbar {
+  width: 40%;
+  margin-right: 20px;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.nav-items li {
+  list-style: none;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.nav-items li:hover,
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.nav-items li a:link,
+.nav-items li a:visited {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.nav-items li:nth-child(5) {
+  font-weight: 700;
+}
+
+.nav-items li:last-child a:link,
+.nav-items li:last-child a:visited {
+  color: rgb(249, 255, 215);
+  font-weight: 700;
+  background: #4a4a4a;
+  padding: 6px 18px 6px 18px;
+  border-radius: 10px;
+}
+
+.nav-items li:last-child a:hover {
+  background: #575757;
+}
