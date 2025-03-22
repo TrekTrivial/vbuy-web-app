@@ -5,6 +5,8 @@ const auth = require("./middleware/auth");
 require("./db").createTables();
 require("dotenv").config();
 
+require("./emails/email");
+
 const app = express();
 app.use(express.json());
 app.use(cors());

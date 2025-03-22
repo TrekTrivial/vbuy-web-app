@@ -33,7 +33,7 @@ function createTables() {
     try {
       if (db_query === "") return;
       await db.query(db_query);
-      console.log("Schema created successfully!");
+      // console.log("Schema created successfully!");
     } catch (e) {
       console.error("Error creating schema!", e);
     }

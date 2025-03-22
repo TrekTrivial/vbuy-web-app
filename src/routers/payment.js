@@ -1,5 +1,6 @@
 const express = require("express");
-const paymentRouter = new express.Router();
+const router = new express.Router();
 const db = require("../db").db;
+const gateway = require("../services/razorpay");
 
-module.exports = paymentRouter;
+module.exports = router;
