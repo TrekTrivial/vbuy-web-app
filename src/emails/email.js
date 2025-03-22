@@ -34,8 +34,4 @@ const sendOTPemail = async ({ name, email }) => {
   }
 };
 
-(async () => {
-  await sendOTPemail({ name: "Joji", email: "viyane2122@eligou.com" });
-})();
-
 module.exports = genOTP;

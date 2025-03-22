@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS USERS (
     email VARCHAR(50) UNIQUE NOT NULL,
     passwd VARCHAR(72) NOT NULL,
     mobile_no VARCHAR(10) NOT NULL,
+    tokens JSON NOT NULL,
     PRIMARY KEY (userID)
 );
 
