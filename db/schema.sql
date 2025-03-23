@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS USERS (
 );
 
 CREATE TABLE IF NOT EXISTS USER_ADDRESS (
-    addressID INT NOT NULL,
+    addressID VARCHAR(25) NOT NULL,
     userID INT NOT NULL,
     street VARCHAR(30) NOT NULL,
     city VARCHAR(30) NOT NULL,
@@ -23,11 +23,11 @@ CREATE TABLE IF NOT EXISTS USER_ADDRESS (
 CREATE TABLE IF NOT EXISTS BOOKS (
     isbn VARCHAR(13) NOT NULL,
     title VARCHAR(50) NOT NULL,
-    author VARCHAR(30) NOT NULL,
+    author JSON NOT NULL,
     publication VARCHAR(50) NOT NULL,
-    edition_ VARCHAR(2) NOT NULL,
-    mrp DECIMAL NOT NULL,
-    costPrice DECIMAL NOT NULL,
+    published VARCHAR(10) NOT NULL,
+    mrp DECIMAL,
+    costPrice DECIMAL,
     stock INT NOT NULL,
     PRIMARY KEY (isbn)
 );
@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS CART (
     cartID INT NOT NULL,
     userID INT NOT NULL,
     isbn JSON NOT NULL,
-    quantity INT NOT NULL,
+    quantity JSON NOT NULL,
+    costPrice JSON NOT NULL,
     cartTotal DECIMAL NOT NULL,
     cartStatus ENUM('empty', 'full') NOT NULL,
     PRIMARY KEY (cartID),
@@ -80,7 +81,7 @@ CREATE TABLE IF NOT EXISTS BANK_ACCOUNT (
 CREATE TABLE IF NOT EXISTS SHIPPING (
     shippingID INT NOT NULL,
     orderID INT NOT NULL,
-    addressID INT NOT NULL,
+    addressID VARCHAR(25) NOT NULL,
     shippingStatus ENUM('Picked up', 'In transit', 'Delivered', 'Under review') NOT NULL,
     PRIMARY KEY (shippingID),
     FOREIGN KEY (orderID) REFERENCES ORDERS(orderID) ON DELETE CASCADE,

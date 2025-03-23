@@ -5,32 +5,40 @@ const email = process.env.SHIPROCKET_EMAIL;
 const password = process.env.SHIPROCKET_PASS;
 const base_url = "https://apiv2.shiprocket.in/v1/external";
 
-const getAuthTokenSR = async () => {
+const getAuthTokenSR = async (req, res, next) => {
+  let SRtoken = "";
   try {
-    const response = await axios.post(`${base_url}/auth/login`, {
-      email,
-      password,
-    });
-    const token = response.data.token;
-    console.log(token);
-    return token;
+    if (!SRtoken) {
+      const response = await axios.post(`${base_url}/auth/login`, {
+        email,
+        password,
+      });
+      SRtoken = response.data.token;
+    }
+    req.SRtoken = SRtoken;
+    next();
   } catch (e) {
-    throw new Error(e);
+    throw new Error(`Hello!!!! ${e}`);
   }
 };
 
 const createOrder = async (token, orderDetails) => {
   try {
     const response = await axios.post(
-      `${base_url}/orders/create/adhoc`,
+      `${base_url}/orders/create`,
       orderDetails,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    console.log(response);
     return response.data;
   } catch (e) {
-    throw new Error(e);
+    console.error(
+      "Error creating order:",
+      e.response ? e.response.data : e.message
+    );
+    throw new Error(e.response ? JSON.stringify(e.response.data) : e.message);
   }
 };
 

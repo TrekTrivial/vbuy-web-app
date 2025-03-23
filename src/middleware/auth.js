@@ -5,7 +5,7 @@ const db = require("../db").db;
 const auth = async (req, res, next) => {
   const token = req.header("Authorization");
   if (!token) {
-    res.status(401).send({ error: "Unable to authenticate. No token!" });
+    return res.status(401).send({ error: "Unable to authenticate. No token!" });
   }
 
   try {
@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
     req.token = token.split(" ")[1];
     next();
   } catch (e) {
-    res.status(403).send({ error: "Invalid or expired token" });
+    return res.status(403).send({ error: "Invalid or expired token" });
   }
 };
 

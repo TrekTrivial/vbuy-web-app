@@ -5,14 +5,13 @@ const auth = require("./middleware/auth");
 require("./db").createTables();
 require("dotenv").config();
 
-require("./emails/email");
-
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../public")));
 
 const userRouter = require("./routers/user");
+const cartRouter = require("./routers/cart");
 const orderRouter = require("./routers/order");
 const paymentRouter = require("./routers/payment");
 const warehouseRouter = require("./routers/warehouse");
@@ -20,6 +19,7 @@ const calculatorRouter = require("./routers/calculator");
 const supportRouter = require("./routers/support");
 
 app.use("/user", userRouter);
+app.use("/cart", cartRouter);
 app.use("/orders", orderRouter);
 app.use("/payments", paymentRouter);
 app.use("/warehouse", warehouseRouter);
