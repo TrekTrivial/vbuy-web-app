@@ -22,53 +22,29 @@ const getAuthTokenSR = async (req, res, next) => {
   }
 };
 
+const SRTokenLogout = async token => {
+  try {
+    await axios.post(`${base_url}/orders/create`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
 const createOrder = async (token, orderDetails) => {
   try {
     const response = await axios.post(
-      `${base_url}/orders/create`,
+      `${base_url}/orders/create/adhoc`,
       orderDetails,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(response);
     return response.data;
   } catch (e) {
-    console.error(
-      "Error creating order:",
-      e.response ? e.response.data : e.message
-    );
+    console.error("Error creating order:", e.response.data);
     throw new Error(e.response ? JSON.stringify(e.response.data) : e.message);
-  }
-};
-
-const updatePickupLocation = async (token, order_id, pickup_location) => {
-  try {
-    const response = await axios.patch(
-      `${base_url}/orders/address/pickup`,
-      { order_id, pickup_location },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const updateOrder = async (token, orderDetails) => {
-  try {
-    const response = await axios.post(
-      `${base_url}/orders/update/adhoc`,
-      orderDetails,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
   }
 };
 
@@ -87,95 +63,18 @@ const cancelOrder = async (token, order_id) => {
   }
 };
 
-const getOrderDetails = async (token, order_id) => {
-  try {
-    const response = await axios.get(`${base_url}/orders/show/${order_id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
 const generateShipment = async (token, shipment_id) => {
   try {
     const response = await axios.post(
-      `${base_url}/courier/assign/web`,
-      { shipment_id },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const generatePickup = async (token, shipment_id) => {
-  try {
-    const response = await axios.post(
-      `${base_url}/courier/generate/pickup`,
-      { shipment_id },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const returnOrder = async (token, orderDetails) => {
-  try {
-    const response = await axios.post(
-      `${base_url}/orders/create/return`,
-      orderDetails,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const updateReturn = async (token, orderDetails) => {
-  try {
-    const response = await axios.post(`${base_url}/orders/edit`, orderDetails, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const generateReturnShipment = async (token, orderDetails) => {
-  try {
-    const response = await axios.post(
       `${base_url}/courier/assign/awb`,
-      orderDetails,
+      { shipment_id, status: "reassign" },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
     return response.data;
   } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const getShipmentDetails = async (token, shipment_id) => {
-  try {
-    const response = await axios.get(`${base_url}/shipments/${shipment_id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  } catch (e) {
+    console.error(e);
     throw new Error(e);
   }
 };
@@ -184,58 +83,14 @@ const cancelShipment = async (token, awbs) => {
   try {
     const response = await axios.post(
       `${base_url}/orders/cancel/shipment/awbs`,
-      { awbs },
+      { awbs: [awbs] },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
     return response.data;
   } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const generateManifest = async (token, shipment_id) => {
-  try {
-    const response = await axios.post(
-      `${base_url}/manifests/generate`,
-      { shipment_id },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const printManifest = async (token, order_id) => {
-  try {
-    const response = await axios.post(
-      `${base_url}/manifests/print`,
-      { order_ids: order_id },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const generateLabel = async (token, shipment_id) => {
-  try {
-    const response = await axios.post(
-      `${base_url}/courier/generate/label`,
-      { shipment_id },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
+    console.error(e);
     throw new Error(e);
   }
 };
@@ -255,49 +110,12 @@ const generateInvoice = async (token, order_id) => {
   }
 };
 
-const getTrackingDetailsAWB = async (token, awb) => {
-  try {
-    const response = await axios.get(`${base_url}/courier/track/awb/${awb}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-const getTrackingDetailsOrderID = async (token, order_id) => {
-  try {
-    const response = await axios.get(
-      `${base_url}/courier/track?order_id=${order_id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
 module.exports = {
   getAuthTokenSR,
+  SRTokenLogout,
   createOrder,
-  updatePickupLocation,
-  updateOrder,
   cancelOrder,
-  getOrderDetails,
   generateShipment,
-  generatePickup,
-  returnOrder,
-  updateReturn,
-  generateReturnShipment,
-  getShipmentDetails,
   cancelShipment,
-  generateManifest,
-  printManifest,
-  generateLabel,
   generateInvoice,
-  getTrackingDetailsAWB,
-  getTrackingDetailsOrderID,
 };
