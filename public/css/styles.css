@@ -1,5 +1,11 @@
+html,
+body {
+  background: #f9ffd7;
+  overflow: auto;
+}
+
 .hero-section {
-  height: 100%;
+  height: 30rem;
   background-image: linear-gradient(
       rgba(34, 34, 34, 0.4),
       rgba(34, 34, 34, 0.4)
@@ -12,15 +18,15 @@
 .hero-container {
   display: flex;
   flex-direction: column;
-  margin: 0 300px 0 300px;
   align-items: center;
 }
 
 .tagline {
   color: #f9ffd7;
-  margin: 90px 200px 0 200px;
-  letter-spacing: 1px;
-  font-size: 90px;
+  margin-top: 4rem;
+  margin-bottom: 0;
+  letter-spacing: 0.1rem;
+  font-size: 5rem;
   text-align: center;
 }
 
@@ -30,41 +36,228 @@
 
 .hero-btns {
   display: flex;
-  width: 45%;
+  width: 27rem;
   justify-content: space-between;
-  margin: 0 0 100px 0;
+  margin: 0 0 0 0;
 }
 
 .hero-btn:link,
 .hero-btn:visited {
-  color: rgb(249, 255, 215);
+  color: #f9ffd7;
   font-weight: 700;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1rem;
   text-align: center;
-  padding: 10px 30px 10px 30px;
+  padding: 0.7rem 1.9rem 0.7rem 1.9rem;
 }
 
 .hero-btn-1:link,
 .hero-btn-1:visited {
-  color: #4a4a4a;
-  background: rgb(249, 255, 215);
-  border-radius: 10px;
+  color: #4e525f;
+  background: #f9ffd7;
+  width: 11rem;
+  border-radius: 0.7rem;
   transition: all 0.3s;
 }
 
 .hero-btn-1:hover {
-  background: rgb(225, 231, 195);
+  background: #d9debb;
+  transform: scale(1.05);
 }
 
 .hero-btn-2:link,
 .hero-btn-2:visited {
-  border: 2px solid rgb(249, 255, 215);
+  border: 2px solid #f9ffd7;
   border-radius: 10px;
+  width: 7rem;
   transition: all 0.3s;
 }
 
 .hero-btn-2:hover {
-  border-color: rgb(225, 231, 195);
-  color: rgb(225, 231, 195);
+  border-color: #d9debb;
+  color: #d9debb;
+  transform: scale(1.05);
+}
+
+.powered-by-container {
+  height: 10.5rem;
+}
+
+.powered-text {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.2rem;
+  filter: brightness(0);
+  opacity: 35%;
+}
+
+.logos-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 10rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.pwd-logo {
+  width: 12rem;
+  filter: brightness(0);
+  opacity: 35%;
+}
+
+.features-container {
+  background: #4e525f;
+}
+
+.features-text {
+  text-align: center;
+  font-size: 4.2rem;
+  font-weight: 700;
+  color: #f9ffd7;
+  padding-top: 2.4rem;
+  margin: 0;
+}
+
+.cards-container {
+  height: 30rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+
+  align-items: center;
+  justify-items: center;
+
+  margin: 0 12rem;
+}
+
+.card {
+  width: 16rem;
+  height: 23rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #f9ffd7;
+  border-radius: 0.7rem;
+  box-shadow: 0 2rem 4rem rgba(249, 255, 215, 0.15);
+  transition: all 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.icon-div {
+  margin-top: 5.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.icon {
+  filter: brightness(0);
+  opacity: 80%;
+  width: 64px;
+  height: 64px;
+}
+
+.card-heading {
+  filter: brightness(0);
+  opacity: 80%;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card-text {
+  color: #252525;
+  width: 75%;
+  margin-top: 1.9rem;
+  text-align: center;
+}
+
+.sell-container {
+  display: flex;
+  justify-content: center;
+  padding: 4.8rem 6.4rem;
+}
+
+.sell-card {
+  background: #5e626e;
+  width: 70rem;
+  height: 35rem;
+  border-radius: 0.7rem;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+
+  display: flex;
+  overflow: hidden;
+}
+
+.form-container {
+  width: 42rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1.8rem;
+}
+
+.sell-text {
+  font-weight: 700;
+  font-size: 4.4rem;
+  line-height: 5.2rem;
+  margin-top: 3.6rem;
+  color: #fbfae1;
+}
+
+.sell-now-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 2.4rem;
+  margin-top: 4rem;
+}
+
+.isbn,
+.sell-submit-btn {
+  font-size: 1.1rem;
+  border-radius: 0.7rem;
+  border: none;
+}
+
+.isbn {
+  width: 60%;
+  height: 2rem;
+  border-radius: 0.7rem;
+  padding: 0.5rem 1rem;
+  color: #4e525f;
+  background: #fdfcf0;
+}
+
+.isbn::placeholder {
+  color: #b4b6bc;
+}
+
+.sell-submit-btn {
+  width: 25%;
+  margin-right: 2.4rem;
+  background: #f9ffd7;
+  color: #383b44;
+  transition: all 0.3s;
+}
+
+.sell-submit-btn:hover {
+  cursor: pointer;
+  background: #d9debb;
+}
+
+.sell-img-container {
+  width: 28rem;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.15)
+    ),
+    url("../img/book_ills.jpg");
+  background-size: cover;
+  background-position: center;
 }

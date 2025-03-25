@@ -4,32 +4,41 @@
 /* #4e525f */
 /* #ffcad4 */
 /* #baacbd */
+/* ******* */
+/* SHADES  */
+/* #d9debb */
+/* ******* */
+/*  TINTS  */
+/*  */
+
+* {
+  padding: 0;
+  margin: 0;
+}
 
 body {
-  font-family: Helvetica;
-  margin: 0;
+  font-family: "Open Sans";
 }
 
 .header {
   display: flex;
-  width: 100%;
   height: auto;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0 10px 0;
+  padding: 0.8rem 0 0.8rem 0;
 
-  background: rgb(225, 231, 195);
+  background: #f9ffd7;
 }
 
 .logo {
-  width: 180px;
-  margin-left: 20px;
-  padding-top: 4.8px;
+  width: 8rem;
+  margin-left: 2rem;
+  padding-top: 0.3rem;
   transition: all 0.3s;
 }
 
 .navbar {
-  width: 40%;
+  width: 35rem;
   margin-right: 20px;
 }
 
@@ -41,34 +50,126 @@ body {
 
 .nav-items li {
   list-style: none;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 600;
   transition: all 0.3s;
 }
 
-.nav-items li:hover,
-.logo:hover {
-  transform: scale(1.1);
+.nav-items li:hover {
+  transform: scale(1.05);
 }
 
 .nav-items li a:link,
 .nav-items li a:visited {
-  color: #4a4a4a;
+  color: #4e525f;
   text-decoration: none;
-}
-
-.nav-items li:nth-child(5) {
-  font-weight: 700;
 }
 
 .nav-items li:last-child a:link,
 .nav-items li:last-child a:visited {
-  color: rgb(249, 255, 215);
+  color: #f9ffd7;
   font-weight: 700;
-  background: #4a4a4a;
+  background: #4e525f;
   padding: 6px 18px 6px 18px;
-  border-radius: 10px;
+  border-radius: 0.7rem;
 }
 
 .nav-items li:last-child a:hover {
-  background: #575757;
+  background: #4e525f;
+}
+
+.footer {
+  background: #4e525f;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 4rem 10rem;
+  column-gap: 4.2rem;
+  justify-items: center;
+  color: #d9debb;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo {
+  width: 9rem;
+  margin-bottom: 0.5rem;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 3.6rem;
+}
+
+.icon-1 {
+  width: 44px;
+  height: 44px;
+}
+
+.icon-2 {
+  width: 40px;
+  height: 40px;
+}
+
+.icon-3 {
+  width: 46px;
+  height: 46px;
+}
+
+.social-icon {
+  fill: #d9debb;
+}
+
+.founder-info p {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.contact-us,
+.account,
+.company {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-us p:first-child,
+.account p:first-child,
+.company p:first-child {
+  color: #ecefdd;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.contact-us p:nth-child(2) {
+  font-size: 1rem;
+  margin-bottom: 4.2rem;
+  font-style: italic;
+}
+
+.contact-us .footer-link {
+  margin: 0;
+}
+
+.footer-link {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.footer-link:link,
+.footer-link:visited {
+  color: #d9debb;
+  text-decoration: none;
+  font-style: italic;
+  transition: all 0.2s;
+}
+
+.footer-link:hover {
+  color: #ecefdd;
 }

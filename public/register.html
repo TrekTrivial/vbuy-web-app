@@ -10,10 +10,10 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>VBuy.com &mdash; Cart</title>
+    <title>VBuy.com &mdash; Register</title>
 
     <link rel="icon" href="img/favicon.png" />
-    <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/register.css" />
     <link rel="stylesheet" href="css/general.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,23 +42,196 @@
       </nav>
     </header>
 
-    <section class="cart-container">
-      <p class="cart-heading">Cart</p>
-      <p class="cart-id-label">Cart ID: <span class="cart-id"></span></p>
-      <div class="cart-table">
-        <table>
-          <tr>
-            <th>S.no</th>
-            <th>ISBN</th>
-            <th>Name of book</th>
-            <th>Quantity</th>
-            <th>MRP</th>
-            <th>VBuy price</th>
-            <th>Total</th>
-          </tr>
-        </table>
-        <span>Cart total: <span class="cart-total"></span></span>
-      </div>
+    <section class="login-form-container">
+      <p class="reg-heading">Register</p>
+      <form class="login-form" method="post">
+        <p class="heading heading-1">Personal details</p>
+        <label class="input-label user-id-label"
+          >User ID
+          <span class="user-id-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field user-id"
+          type="text"
+          name="userID"
+          placeholder="(eg. 123)"
+        />
+
+        <label class="input-label fname-label"
+          >First name
+          <span class="fname-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field firstName"
+          type="text"
+          name="firstName"
+          placeholder="(eg. Harry)"
+        />
+
+        <label class="input-label lname-label"
+          >Last name
+          <span class="lname-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field lastName"
+          type="text"
+          name="lastName"
+          placeholder="(eg. Sharma)"
+        />
+
+        <label class="input-label email-label"
+          >Email
+          <span class="email-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field email"
+          type="email"
+          name="email"
+          placeholder="(eg. harrysharma@example.com)"
+        />
+
+        <label class="input-label pass-1-label"
+          >Password
+          <span class="pass1-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field password1"
+          type="password"
+          name="password1"
+          placeholder="Password"
+        />
+
+        <label class="input-label pass-2-label"
+          >Confirm password
+          <span class="pass2-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field password2"
+          type="password"
+          name="password2"
+          placeholder="Confirm password"
+        />
+
+        <label class="input-label phone-label"
+          >Mobile number
+          <span class="phone-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field phone-number"
+          type="tel"
+          name="mobile_no"
+          placeholder="(eg. 9876543210)"
+        />
+
+        <p class="heading heading-2">Address details</p>
+        <label class="input-label street-label"
+          >Street
+          <span class="street-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field street"
+          type="text"
+          name="street"
+          placeholder="(eg. Block A, 29, Vallabh Nagar)"
+        />
+
+        <label class="input-label city-label"
+          >City
+          <span class="city-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field city"
+          type="text"
+          name="city"
+          placeholder="(eg. Indore)"
+        />
+
+        <label class="input-label state-label"
+          >State
+          <span class="state-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field state"
+          type="text"
+          name="state_"
+          placeholder="(eg. Madhya Pradesh)"
+        />
+
+        <label class="input-label pincode-label"
+          >Pincode
+          <span class="pincode-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field pincode"
+          type="text"
+          name="pincode"
+          placeholder="(eg. 452003)"
+        />
+
+        <div class="terms-container">
+          <input class="terms" type="checkbox" name="terms" />
+          <label class="terms-label"
+            >I accept the
+            <a class="terms-link" href="terms.html">terms and conditions.</a>
+            <span class="terms-error" style="color: rgb(255, 91, 91)" hidden
+              >&#9888;</span
+            ></label
+          >
+        </div>
+
+        <button value="request_otp" class="otp-btn">Request OTP</button>
+
+        <div class="otp-verify">
+          <p class="heading heading-3">Verify yourself</p>
+          <p class="otp-heading" hidden>
+            An OTP has been sent to your entered email address. It expires in 5
+            minutes.
+          </p>
+          <label class="input-label otp-label"
+            >OTP
+            <span class="otp-error" style="color: rgb(255, 91, 91)" hidden
+              >&#9888; Invalid!</span
+            ></label
+          >
+          <input
+            disabled
+            class="input-field otp"
+            type="text"
+            name="otp"
+            placeholder="(eg. 000000)"
+          />
+        </div>
+
+        <button value="resend_otp" class="otp-btn-res" disabled>
+          Resend OTP
+        </button>
+
+        <button disabled value="register" class="otp-btn-reg">
+          Verify and register
+        </button>
+      </form>
     </section>
 
     <footer class="footer">
@@ -145,7 +318,7 @@
         <a class="footer-link" href="./privacy.html">Privacy policy</a>
       </div>
     </footer>
-
-    <script src="js/cart.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/auth.js"></script>
   </body>
 </html>

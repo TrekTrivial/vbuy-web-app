@@ -88,19 +88,14 @@ router.post("/register", async (req, res) => {
   // }
 });
 
-router.post("/request-otp", async (req, res) => {
+router.post("/request_otp", async (req, res) => {
   const { name, email } = req.body;
   try {
-    // const data = await db.query(
-    //   "ALTER TABLE OTP_VERIFICATION MODIFY COLUMN EXPIRES_AT VARCHAR(20) NOT NULL"
-    // );
-    // console.log(data[0]);
     const { otp, expires_at } = await sendOTPemail(name, email);
     await db.query(
       `INSERT INTO OTP_VERIFICATION (email, OTP, EXPIRES_AT) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE OTP = ?, EXPIRES_AT = ?`,
       [email, otp, expires_at, otp, expires_at]
     );
-
     res.status(200).send({ message: "OTP sent", otp });
   } catch (e) {
     res.status(500).send({ error: "Error sending OTP", e });

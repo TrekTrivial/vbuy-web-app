@@ -10,10 +10,10 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>VBuy.com &mdash; Cart</title>
+    <title>VBuy.com &mdash; Login</title>
 
     <link rel="icon" href="img/favicon.png" />
-    <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/support.css" />
     <link rel="stylesheet" href="css/general.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,23 +42,29 @@
       </nav>
     </header>
 
-    <section class="cart-container">
-      <p class="cart-heading">Cart</p>
-      <p class="cart-id-label">Cart ID: <span class="cart-id"></span></p>
-      <div class="cart-table">
-        <table>
-          <tr>
-            <th>S.no</th>
-            <th>ISBN</th>
-            <th>Name of book</th>
-            <th>Quantity</th>
-            <th>MRP</th>
-            <th>VBuy price</th>
-            <th>Total</th>
-          </tr>
-        </table>
-        <span>Cart total: <span class="cart-total"></span></span>
-      </div>
+    <section class="support-form-container">
+      <p class="support-heading">Raise support request</p>
+
+      <form class="support-form">
+        <label class="input-label subject-label">Subject</label>
+        <input
+          class="input-field subject"
+          type="text"
+          name="issueSubject"
+          placeholder="(eg. Unable to login)"
+        />
+
+        <label class="input-label issue-label">Message</label>
+        <textarea
+          class="input-field issue"
+          name="issueMessage"
+          placeholder="Describe your issue..."
+        ></textarea>
+
+        <button type="submit" name="action" value="support" class="support-btn">
+          Raise ticket
+        </button>
+      </form>
     </section>
 
     <footer class="footer">
@@ -145,7 +151,5 @@
         <a class="footer-link" href="./privacy.html">Privacy policy</a>
       </div>
     </footer>
-
-    <script src="js/cart.js"></script>
   </body>
 </html>

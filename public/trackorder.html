@@ -10,10 +10,10 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>VBuy.com &mdash; Cart</title>
+    <title>VBuy.com &mdash; Login</title>
 
     <link rel="icon" href="img/favicon.png" />
-    <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/trackorder.css" />
     <link rel="stylesheet" href="css/general.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,23 +42,32 @@
       </nav>
     </header>
 
-    <section class="cart-container">
-      <p class="cart-heading">Cart</p>
-      <p class="cart-id-label">Cart ID: <span class="cart-id"></span></p>
-      <div class="cart-table">
-        <table>
-          <tr>
-            <th>S.no</th>
-            <th>ISBN</th>
-            <th>Name of book</th>
-            <th>Quantity</th>
-            <th>MRP</th>
-            <th>VBuy price</th>
-            <th>Total</th>
-          </tr>
-        </table>
-        <span>Cart total: <span class="cart-total"></span></span>
-      </div>
+    <section class="track-form-container">
+      <p class="track-heading">Track order</p>
+
+      <form class="track-form">
+        <label class="input-label awb-label">AWB number</label>
+        <input
+          class="input-field awb"
+          type="text"
+          name="awb"
+          placeholder="(eg. 778556115483)"
+        />
+
+        <p class="or-label">OR</p>
+
+        <label class="input-label order-id-label">Order ID</label>
+        <input
+          class="input-field order-id"
+          type="text"
+          name="orderID"
+          placeholder="(eg. VB-123-3)"
+        />
+
+        <button type="submit" name="action" value="track" class="track-btn">
+          Get tracking
+        </button>
+      </form>
     </section>
 
     <footer class="footer">
@@ -145,7 +154,5 @@
         <a class="footer-link" href="./privacy.html">Privacy policy</a>
       </div>
     </footer>
-
-    <script src="js/cart.js"></script>
   </body>
 </html>
