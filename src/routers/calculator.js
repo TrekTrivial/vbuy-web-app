@@ -13,7 +13,6 @@ router.get("/book/:isbn", async (req, res) => {
 
   try {
     const Book = await getBookInfo(isbn);
-    console.log(Book);
     const volumeInfo = Book.volumeInfo;
     const saleInfo = Book.saleInfo;
 

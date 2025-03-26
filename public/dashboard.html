@@ -10,7 +10,7 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>VBuy.com &mdash; Dashboard</title>
+    <title>VBuy.com &mdash; Register</title>
 
     <link rel="icon" href="img/favicon.png" />
     <link rel="stylesheet" href="css/dashboard.css" />
@@ -41,6 +41,149 @@
         </ul>
       </nav>
     </header>
+
+    <section class="login-form-container">
+      <p class="reg-heading">Dashboard</p>
+      <form class="login-form" method="post">
+        <p class="heading heading-1">Personal details</p>
+        <label class="input-label user-id-label"
+          >User ID
+          <span class="user-id-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          disabled
+          class="input-field user-id"
+          type="text"
+          name="userID"
+          placeholder="(eg. 123)"
+        />
+
+        <label class="input-label fname-label"
+          >First name
+          <span class="fname-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          disabled
+          class="input-field firstName"
+          type="text"
+          name="firstName"
+          placeholder="(eg. Harry)"
+        />
+
+        <label class="input-label lname-label"
+          >Last name
+          <span class="lname-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          disabled
+          class="input-field lastName"
+          type="text"
+          name="lastName"
+          placeholder="(eg. Sharma)"
+        />
+
+        <label class="input-label email-label"
+          >Email
+          <span class="email-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field email"
+          type="email"
+          name="email"
+          placeholder="(eg. harrysharma@example.com)"
+        />
+
+        <label class="input-label pass-1-label"
+          >Change password
+          <span class="pass1-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field password1"
+          type="password"
+          name="password1"
+          placeholder="Password"
+        />
+
+        <label class="input-label phone-label"
+          >Mobile number
+          <span class="phone-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field phone-number"
+          type="tel"
+          name="mobile_no"
+          placeholder="(eg. 9876543210)"
+        />
+
+        <p class="heading heading-2">Address details</p>
+        <label class="input-label street-label"
+          >Street
+          <span class="street-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field street"
+          type="text"
+          name="street"
+          placeholder="(eg. Block A, 29, Vallabh Nagar)"
+        />
+
+        <label class="input-label city-label"
+          >City
+          <span class="city-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field city"
+          type="text"
+          name="city"
+          placeholder="(eg. Indore)"
+        />
+
+        <label class="input-label state-label"
+          >State
+          <span class="state-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field state"
+          type="text"
+          name="state_"
+          placeholder="(eg. Madhya Pradesh)"
+        />
+
+        <label class="input-label pincode-label"
+          >Pincode
+          <span class="pincode-error" style="color: rgb(255, 91, 91)" hidden
+            >&#9888; Invalid!</span
+          ></label
+        >
+        <input
+          class="input-field pincode"
+          type="text"
+          name="pincode"
+          placeholder="(eg. 452003)"
+        />
+
+        <button type="submit" class="otp-btn-reg">Update</button>
+        <button class="del-btn">Delete account</button>
+      </form>
+    </section>
 
     <footer class="footer">
       <div class="info">
@@ -126,5 +269,7 @@
         <a class="footer-link" href="./privacy.html">Privacy policy</a>
       </div>
     </footer>
+    <script src="js/common.js"></script>
+    <script src="js/dashboard.js"></script>
   </body>
 </html>

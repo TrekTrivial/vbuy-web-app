@@ -1,7 +1,5 @@
 "use strict";
 
-const API_BASE_URL = "http://localhost:5000";
-
 document.querySelector(".otp-btn").addEventListener("click", async e => {
   e.preventDefault();
 
@@ -15,14 +13,12 @@ document.querySelector(".otp-btn").addEventListener("click", async e => {
   };
 
   try {
-    console.log("hi");
     const response = await fetch(`${API_BASE_URL}/user/request_otp`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataForOTP),
     });
 
-    console.log(response);
     const data = await response.json();
 
     if (response.ok) {

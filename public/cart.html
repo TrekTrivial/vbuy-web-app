@@ -45,8 +45,8 @@
     <section class="cart-container">
       <p class="cart-heading">Cart</p>
       <p class="cart-id-label">Cart ID: <span class="cart-id"></span></p>
-      <div class="cart-table">
-        <table>
+      <div class="cart-table-container">
+        <table class="cart-table">
           <tr>
             <th>S.no</th>
             <th>ISBN</th>
@@ -55,10 +55,16 @@
             <th>MRP</th>
             <th>VBuy price</th>
             <th>Total</th>
+            <th>Remove</th>
           </tr>
         </table>
-        <span>Cart total: <span class="cart-total"></span></span>
       </div>
+      <div class="cart-total-container">
+        <span class="cart-total-heading">Cart total</span>
+        <span><strong>Rs. </strong><span class="cart-total"></span></span>
+      </div>
+
+      <input type="submit" value="Place order" class="order-btn" />
     </section>
 
     <footer class="footer">
@@ -146,6 +152,7 @@
       </div>
     </footer>
 
+    <script src="js/common.js"></script>
     <script src="js/cart.js"></script>
   </body>
 </html>

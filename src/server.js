@@ -19,7 +19,7 @@ const calculatorRouter = require("./routers/calculator");
 const supportRouter = require("./routers/support");
 
 app.use("/user", userRouter);
-app.use("/cart", cartRouter);
+app.use("/carts", cartRouter);
 app.use("/orders", orderRouter);
 app.use("/payments", paymentRouter);
 app.use("/warehouse", warehouseRouter);

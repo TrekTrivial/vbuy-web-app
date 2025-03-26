@@ -9,9 +9,12 @@ router.post("/additem", auth, async (req, res) => {
   const cartID = id + "__cart";
   const cartStatus = "full";
 
+  console.log(req.body);
+
   try {
     const [results] = await db.query(`SELECT * FROM CART WHERE userID=?`, [id]);
     if (results.length === 0) {
+      console.log("hi");
       await db.query(
         `INSERT INTO CART (cartID, userID, isbn, quantity, costPrice, cartTotal, cartStatus) VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
@@ -20,13 +23,15 @@ router.post("/additem", auth, async (req, res) => {
           JSON.stringify([isbn]),
           JSON.stringify([quantity]),
           JSON.stringify([costPrice]),
-          costPrice * quantity,
+          costPrice ? costPrice * quantity : 0,
           cartStatus,
         ]
       );
       return res.status(201).send({ message: "Added to cart" });
     } else if (results.length > 0) {
       const cart = results[0];
+      console.log(cart);
+      const cartTotal = Number(cart.cartTotal) + costPrice * quantity;
       const count = cart.isbn.filter(ISBN => ISBN === isbn);
       if (count.length !== 0) {
         const index = cart.isbn.indexOf(isbn);
@@ -34,7 +39,7 @@ router.post("/additem", auth, async (req, res) => {
         await db.query(sql, [
           quantity + cart.quantity[index],
           costPrice,
-          costPrice * quantity + cart.quantity[index] * costPrice,
+          cartTotal,
           cartStatus,
           cartID,
         ]);
@@ -49,6 +54,7 @@ router.post("/additem", auth, async (req, res) => {
         cartStatus,
         cartID,
       ]);
+      console.log("Hello");
       res.status(200).send({ message: "Cart updated" });
     }
   } catch (e) {

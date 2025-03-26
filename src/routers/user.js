@@ -104,7 +104,7 @@ router.post("/request_otp", async (req, res) => {
 
 router.post("/debug_queries", async (req, res) => {
   try {
-    const data = await db.query("SELECT * FROM BANK_ACCOUNT");
+    const data = await db.query(`SELECT * FROM SHIPPING`);
     console.log(data[0]);
     res.send();
   } catch (e) {
@@ -170,6 +170,22 @@ router.post("/logout/all", auth, async (req, res) => {
 router.get("/profile", auth, async (req, res) => {
   const { id } = req.user;
   const sql = `SELECT * FROM USERS WHERE userID = ?`;
+  try {
+    const [result] = await db.query(sql, [id]);
+
+    if (result.length === 0) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    const user = result[0];
+    res.status(200).send(user);
+  } catch (e) {
+    res.status(500).send({ error: "Database error!", e });
+  }
+});
+
+router.get("/profile/address", auth, async (req, res) => {
+  const { id } = req.user;
+  const sql = `SELECT * FROM USER_ADDRESS WHERE userID = ?`;
   try {
     const [result] = await db.query(sql, [id]);
 
