@@ -1,4 +1,4 @@
-const API_BASE_URL = "vbuy-web-app-production.up.railway.app";
+const API_BASE_URL = "";
 
 function getTokenFromCookies() {
   let cookies = document.cookie.split("; ");
