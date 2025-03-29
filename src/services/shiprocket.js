@@ -18,7 +18,7 @@ const getAuthTokenSR = async (req, res, next) => {
     req.SRtoken = SRtoken;
     next();
   } catch (e) {
-    throw new Error(`Hello!!!! ${e}`);
+    throw new Error(e);
   }
 };
 

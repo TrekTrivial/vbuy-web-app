@@ -84,7 +84,7 @@ body {
 }
 
 .powered-by-container {
-  height: 10.5rem;
+  height: 12rem;
 }
 
 .powered-text {
@@ -288,6 +288,7 @@ body {
   font-size: 1.1rem;
   margin: 0.6rem 15rem 0.7rem 15rem;
   line-height: 1.8rem;
+  text-align: center;
 }
 
 .cookie-buttons {

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS USERS (
-    userID INT NOT NULL,
+    userID VARCHAR(15) NOT NULL,
     firstName VARCHAR(25) NOT NULL,
     lastName VARCHAR(25) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS OTP_VERIFICATION (
 );
 
 CREATE TABLE IF NOT EXISTS USER_ADDRESS (
-    addressID VARCHAR(25) NOT NULL,
-    userID INT NOT NULL,
+    addressID VARCHAR(40) NOT NULL,
+    userID VARCHAR(15) NOT NULL,
     street VARCHAR(30) NOT NULL,
     city VARCHAR(30) NOT NULL,
     state_ VARCHAR(30) NOT NULL,
@@ -43,34 +43,34 @@ CREATE TABLE IF NOT EXISTS BOOKS (
 
 CREATE TABLE IF NOT EXISTS CART (
     cartID VARCHAR(25) NOT NULL,
-    userID INT NOT NULL,
+    userID VARCHAR(15) NOT NULL,
     isbn JSON NOT NULL,
     quantity JSON NOT NULL,
     costPrice JSON NOT NULL,
     cartTotal DECIMAL NOT NULL,
-    cartStatus ENUM('empty', 'full') NOT NULL,
+    cartStatus ENUM('empty', 'not empty') NOT NULL,
     PRIMARY KEY (cartID),
     FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ORDERS (
-    orderID VARCHAR(25) NOT NULL,
-    userID INT NOT NULL,
-    cartID VARCHAR(30) NOT NULL,
+    orderID VARCHAR(40) NOT NULL,
+    userID VARCHAR(15) NOT NULL,
+    cartID VARCHAR(40) NOT NULL,
     item_count INT NOT NULL,
     orderTotal DECIMAL NOT NULL,
     orderDate VARCHAR(100) NOT NULL,
-    orderStatus ENUM('Confirmed', 'Completed', 'Cancelled') NOT NULL,
+    orderStatus ENUM('Confirmed', 'Completed', 'Cancelled', 'Processing') NOT NULL,
     PRIMARY KEY (orderID),
     FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE,
     FOREIGN KEY (cartID) REFERENCES CART(cartID)
 );
 
 CREATE TABLE IF NOT EXISTS PAYMENTS (
-    paymentID VARCHAR(25) NOT NULL,
-    transactionID INT,
-    userID INT NOT NULL,
-    orderID VARCHAR(25),
+    paymentID VARCHAR(40) NOT NULL,
+    transactionID VARCHAR(50),
+    userID VARCHAR(15) NOT NULL,
+    orderID VARCHAR(40),
     paymentStatus ENUM('Completed', 'Processing'),
     PRIMARY KEY (paymentID),
     FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE,
@@ -78,10 +78,10 @@ CREATE TABLE IF NOT EXISTS PAYMENTS (
 );
 
 CREATE TABLE IF NOT EXISTS BANK_ACCOUNT (
-    accountID VARCHAR(25) NOT NULL,
+    accountID VARCHAR(40) NOT NULL,
     contact_id VARCHAR(30),
     fund_account_id VARCHAR(30),
-    userID INT NOT NULL,
+    userID VARCHAR(15) NOT NULL,
     vpaID VARCHAR(50),
     accountNumber VARCHAR(30),
     ifsc VARCHAR(11),
@@ -94,11 +94,11 @@ CREATE TABLE IF NOT EXISTS BANK_ACCOUNT (
 CREATE TABLE IF NOT EXISTS SHIPPING (
     shippingID INT NOT NULL,
     ship_orderID INT,
-    orderID VARCHAR(25) NOT NULL,
-    addressID VARCHAR(25) NOT NULL,
+    orderID VARCHAR(40) NOT NULL,
+    addressID VARCHAR(40) NOT NULL,
     AWBnumber VARCHAR(25),
     AWB_transporter VARCHAR(30),
-    invoiceLink VARCHAR(150),
+    invoiceLink VARCHAR(255),
     shippingStatus ENUM('In transit', 'Delivered'),
     PRIMARY KEY (shippingID),
     FOREIGN KEY (orderID) REFERENCES ORDERS(orderID) ON DELETE CASCADE,
@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS SHIPPING (
 );
 
 CREATE TABLE IF NOT EXISTS SUPPORT (
-    ticketID VARCHAR(30) NOT NULL,
-    userID INT NOT NULL,
+    ticketID VARCHAR(40) NOT NULL,
+    userID VARCHAR(15) NOT NULL,
     issueSubject VARCHAR(255) NOT NULL,
     issueMessage TEXT NOT NULL,
     replyMessage TEXT,

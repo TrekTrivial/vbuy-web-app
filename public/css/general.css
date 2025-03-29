@@ -18,6 +18,10 @@
 
 body {
   font-family: "Open Sans";
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .header {
@@ -185,7 +189,7 @@ li {
 .about-dropdown {
   background: #f9ffd7;
   width: 10rem;
-  height: 9rem;
+  height: 12rem;
   padding-top: 2.4rem;
   display: flex;
   flex-direction: column;
