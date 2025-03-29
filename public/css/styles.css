@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   background: #f9ffd7;
@@ -155,7 +159,7 @@ body {
   margin-bottom: 1.1rem;
 }
 
-.icon {
+.card-icon {
   filter: brightness(0);
   opacity: 80%;
   width: 64px;
@@ -260,4 +264,68 @@ body {
     url("../img/book_ills.jpg");
   background-size: cover;
   background-position: center;
+}
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  background: #23252c;
+  color: #fcffeb;
+  width: 100%;
+  height: 8.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s;
+}
+
+.cookie-banner.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cookie-banner p {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin: 0.6rem 15rem 0.7rem 15rem;
+  line-height: 1.8rem;
+}
+
+.cookie-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.cookie-buttons button {
+  background: #fcffeb;
+  border: 1px solid #fcffeb;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #23252c;
+  margin-right: 1rem;
+}
+
+.cookie-buttons button:hover {
+  cursor: pointer;
+  background: #f9ffd7;
+}
+
+.cookie-buttons a {
+  transition: all 0.2s;
+  border: 2px solid #fcffeb;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.7rem;
+}
+
+.cookie-buttons a:link,
+.cookie-buttons a:visited {
+  text-decoration: none;
+  color: #fcffeb;
+}
+
+.cookie-buttons a:hover {
+  color: #f9ffd7;
 }
