@@ -42,7 +42,7 @@ body {
 }
 
 .navbar {
-  width: 42rem;
+  max-width: 42rem;
   margin-right: 2rem;
 }
 
@@ -337,14 +337,22 @@ li {
   display: none;
 }
 
-.footer {
+.footer-container {
   background: #4e525f;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 4rem 10rem;
   column-gap: 4.2rem;
   justify-items: center;
   color: #d9debb;
+  max-width: 80rem;
+  flex-grow: 1;
 }
 
 .info {

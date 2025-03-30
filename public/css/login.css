@@ -1,62 +1,94 @@
-.login-form-container {
-  background: #5e626e;
-  margin: 2rem 35rem;
-  color: #f9ffd7;
-  padding: 1.8rem 1rem;
+.form-container {
+  max-width: 60rem;
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #edebed;
+  padding: 2rem;
+  color: #252525;
   border-radius: 0.7rem;
+  max-height: 20rem;
+  box-shadow: 0 0.5rem 10px rgba(0, 0, 0, 0.15);
 }
 
-.log-heading {
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 2.4rem;
-  margin-bottom: 1.8rem;
+.form-container a {
+  text-decoration: none;
 }
 
-.login-form {
-  display: grid;
-  grid-template-columns: 1fr;
+.form-heading {
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  padding-bottom: 1rem;
 }
 
-.input-label {
+input {
+  font-size: 0.9rem;
+  padding: 0.5rem 0.8rem;
+  border: 0.2px solid rgba(170, 170, 170, 0.35);
+  border-radius: 0.7rem;
+  color: #252525;
+}
+
+input::placeholder {
+  color: #cdcdcd;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
   font-weight: 500;
-  width: 20rem;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
 }
 
-.input-field {
-  font-size: 1rem;
-  padding: 0.6rem 0.8rem;
-  border: none;
-  border-radius: 0.7rem;
-  color: #4e525f;
-  background: #fdfcf0;
+.username-container,
+.pwd-container {
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
   margin-bottom: 1rem;
 }
 
-.input-field::placeholder {
-  color: #b4b6bc;
+.login-btn {
+  align-self: center;
+  background: #008d00;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
+  transition: all 0.2s;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
-.password {
-  margin-bottom: 2.4rem;
+.login-btn:link,
+.login-btn:visited {
+  color: white;
+  font-weight: 600;
 }
 
-.login-btn-form {
-  height: 38.4px;
-  justify-self: center;
-  font-weight: 500;
-  font-size: 1rem;
-  width: 100%;
-  border: none;
-  border-radius: 0.7rem;
-  color: #383b44;
-  background: #f9ffd7;
+.login-btn:hover {
+  background: #007600;
+}
+
+.register-btn {
+  font-size: 0.9rem;
+  border-top: 0.2px solid rgba(195, 188, 196, 0.8);
+  text-align: center;
+  width: 95%;
+  padding-top: 1rem;
+}
+
+.register-btn a {
   transition: all 0.2s;
 }
 
-.login-btn-form:hover {
-  cursor: pointer;
-  background: #d9debb;
+.register-btn a:link,
+.register-btn a:visited {
+  color: rgb(61, 61, 255);
+}
+
+.register-btn a:hover {
+  color: rgb(30, 30, 255);
 }

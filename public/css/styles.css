@@ -134,7 +134,8 @@ body {
   align-items: center;
   justify-items: center;
 
-  margin: 0 12rem;
+  margin: 0 auto;
+  max-width: 75rem;
 }
 
 .card {
@@ -211,6 +212,7 @@ body {
   line-height: 5.2rem;
   margin-top: 3.6rem;
   color: #fbfae1;
+  letter-spacing: 1px;
 }
 
 .sell-now-form {
