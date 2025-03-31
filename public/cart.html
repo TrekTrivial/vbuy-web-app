@@ -27,35 +27,61 @@
   <body>
     <div id="header-container"></div>
 
-    <section class="cart-container">
+    <div class="cart-container">
       <p class="cart-heading">Cart</p>
-      <p class="cart-id-label">Cart ID: <span class="cart-id"></span></p>
-      <div class="cart-table-container">
-        <table class="cart-table">
-          <tr>
-            <th>S.no</th>
-            <th>ISBN</th>
-            <th>Name of book</th>
-            <th>Quantity</th>
-            <th>MRP</th>
-            <th>VBuy price</th>
-            <th>Total</th>
-            <th>Remove</th>
-          </tr>
-        </table>
-      </div>
-      <div class="cart-total-container">
-        <span class="cart-total-heading">Cart total</span>
-        <span><strong>Rs. </strong><span class="cart-total"></span></span>
+
+      <div class="empty-cart">
+        <p>Your cart is empty.</p>
       </div>
 
-      <input type="submit" value="Place order" class="order-btn" />
-    </section>
+      <div class="sub-cart-container">
+        <div class="cart-id-container">
+          <p class="cart-id-text">Cart ID</p>
+          <p class="cart-id">123</p>
+        </div>
+
+        <div class="cart-table-container">
+          <table class="cart-table">
+            <tr>
+              <th>S.no</th>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Quantity</th>
+              <th>MRP</th>
+              <th>VBuy price</th>
+              <th>Total</th>
+              <th>Remove</th>
+            </tr>
+            <tr>
+              <td>S.no</td>
+              <td>ISBN</td>
+              <td>Title</td>
+              <td>Autdor</td>
+              <td>Quantity</td>
+              <td>MRP</td>
+              <td>VBuy price</td>
+              <td>Total</td>
+              <td><a href="" class="remove-btn">&cross;</a></td>
+            </tr>
+          </table>
+
+          <div class="cart-value-container">
+            <p class="cart-value-text">Total cart value</p>
+            <p class="cart-value">120.00</p>
+          </div>
+
+          <div class="cart-btns">
+            <a href="" class="del-cart-btn">Delete cart</a>
+            <a href="" class="checkout-btn">Proceed to checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="footer-container"></div>
 
     <script src="js/header_footer.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/cart.js"></script>
   </body>
 </html>

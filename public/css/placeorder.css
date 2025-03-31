@@ -1,4 +1,4 @@
-.order-container {
+.place-container {
   max-width: 100rem;
   margin: 2rem auto;
   display: flex;
@@ -20,14 +20,14 @@ label {
   font-weight: 500;
 }
 
-.order-heading {
+.place-heading {
   font-weight: 600;
   font-size: 2rem;
   letter-spacing: 1px;
   padding-bottom: 1rem;
 }
 
-.sub-order-container {
+.sub-place-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +41,7 @@ label {
 }
 
 .info-container label {
-  width: 12rem;
+  width: 8rem;
 }
 
 .info-container p {
@@ -153,46 +153,16 @@ label {
   background: #333;
 }
 
-.payment-container {
+.place-btns {
   display: flex;
   align-items: center;
-  margin-bottom: 3rem;
-  margin-top: 0.5rem;
-  width: 100%;
-  justify-content: right;
+  margin-top: 2rem;
 }
 
-.download {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: 0.3rem;
-}
-
-.invoice-btn {
-  display: flex;
-  align-items: center;
-  background: #00b000;
+.cancel-btn {
+  background: #ff4031;
   border-radius: 0.3rem;
-  padding: 0.2rem 0.6rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.2s;
-  width: fit-content;
-}
-
-.invoice-btn:link,
-.invoice-btn:visited {
-  color: white;
-}
-
-.invoice-btn:hover {
-  background: #009000;
-}
-
-.payment-info-btn {
-  background: #00b000;
-  border-radius: 0.3rem;
-  padding: 0.35rem 0.6rem;
+  padding: 0.3rem 0.8rem;
   font-size: 0.9rem;
   font-weight: 600;
   transition: all 0.2s;
@@ -200,17 +170,17 @@ label {
   margin-right: 1rem;
 }
 
-.payment-info-btn:link,
-.payment-info-btn:visited {
+.cancel-btn:link,
+.cancel-btn:visited {
   color: white;
 }
 
-.payment-info-btn:hover {
-  background: #009000;
+.cancel-btn:hover {
+  background: #9e0000;
 }
 
-.cancel-order-btn {
-  background: #ff4031;
+.place-order-btn {
+  background: #008d00;
   border-radius: 0.3rem;
   padding: 0.3rem 0.8rem;
   font-size: 0.9rem;
@@ -219,11 +189,11 @@ label {
   width: fit-content;
 }
 
-.cancel-order-btn:link,
-.cancel-order-btn:visited {
+.place-order-btn:link,
+.place-order-btn:visited {
   color: white;
 }
 
-.cancel-order-btn:hover {
-  background: #9e0000;
+.place-order-btn:hover {
+  background: #007600;
 }

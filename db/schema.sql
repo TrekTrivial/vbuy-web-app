@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS CART (
     quantity JSON NOT NULL,
     costPrice JSON NOT NULL,
     cartTotal DECIMAL NOT NULL,
-    cartStatus ENUM('empty', 'not empty') NOT NULL,
+    cartStatus ENUM('not empty', 'fulfilled') NOT NULL,
     PRIMARY KEY (cartID),
     FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
 );

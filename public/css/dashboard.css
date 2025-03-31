@@ -94,6 +94,7 @@ select {
 .profile-container {
   display: flex;
   flex-direction: column;
+  display: none;
 }
 
 .prof-tabs-container {
@@ -443,4 +444,360 @@ select {
 
 .address-cfm-btn:hover {
   background: #009000;
+}
+
+.bank-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem;
+  margin-left: 1rem;
+}
+
+.bank-container label {
+  width: 12rem;
+}
+
+.bank-type-container {
+  margin-bottom: 2rem;
+}
+
+.bank-acc-container {
+  display: none;
+}
+
+.vpa-container {
+  /* display: none; */
+}
+
+.bank-btns {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.bank-cfm-btn,
+.ifsc-verify-btn,
+.vpa-verify-btn {
+  background: #00b000;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.bank-cfm-btn:link,
+.bank-cfm-btn:visited,
+.ifsc-verify-btn:link,
+.ifsc-verify-btn:visited,
+.vpa-verify-btn:link,
+.vpa-verify-btn:visited {
+  color: white;
+}
+
+.bank-cfm-btn:hover,
+.ifsc-verify-btn:hover,
+.vpa-verify-btn:hover {
+  background: #009000;
+}
+
+.bank-btn,
+.bank-change-btn {
+  background: #ff4031;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.bank-btn:link,
+.bank-btn:visited,
+.bank-change-btn:link,
+.bank-change-btn:visited {
+  color: white;
+}
+
+.bank-btn:hover,
+.bank-change-btn:hover {
+  background: #9e0000;
+}
+
+.ifsc-verify-btn,
+.vpa-verify-btn {
+  margin-left: 1rem;
+}
+
+.bank-change-btn,
+.bank-cfm-btn {
+  margin-left: 1rem;
+}
+
+.orders-container {
+  width: 60rem;
+  display: flex;
+  flex-direction: column;
+  display: none;
+}
+
+.orders-text {
+  height: 3rem;
+  font-weight: 550;
+  text-align: center;
+  align-content: center;
+  box-sizing: border-box;
+  background-color: #ddd;
+  border-bottom: 4px solid #3e3e3e;
+}
+
+.no-orders {
+  display: none;
+}
+
+.no-orders p {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-style: italic;
+}
+
+.sub-order-container {
+  margin-top: 1.2rem;
+}
+
+.order-table {
+  margin: 0 auto;
+  width: 90%;
+  border-collapse: collapse;
+  border: 0.2px solid #ccc;
+}
+
+.order-table tr {
+  height: 3rem;
+}
+
+.order-table tr th,
+.order-table tr td {
+  border: 0.2px solid #ccc;
+  text-align: center;
+}
+
+.order-table tr th:nth-child(1),
+.order-table tr td:nth-child(1) {
+  width: 11rem;
+}
+
+.order-table tr th:nth-child(2),
+.order-table tr td:nth-child(2) {
+  width: 10rem;
+}
+
+.order-table tr th:nth-child(3),
+.order-table tr td:nth-child(3) {
+  width: 12rem;
+}
+
+.order-table tr th:nth-child(4),
+.order-table tr td:nth-child(4) {
+  width: 10rem;
+}
+
+.order-table tr td a {
+  transition: all 0.2s;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.3rem;
+  font-weight: 500;
+}
+
+.order-table tr td a:link,
+.order-table tr td a:visited {
+  color: #252525;
+}
+
+.order-table tr td a:hover {
+  color: white;
+  background: #333;
+}
+
+.tickets-container {
+  width: 60rem;
+  display: flex;
+  flex-direction: column;
+  /* display: none; */
+}
+
+.tickets-text {
+  height: 3rem;
+  font-weight: 550;
+  text-align: center;
+  align-content: center;
+  box-sizing: border-box;
+  background-color: #ddd;
+  border-bottom: 4px solid #3e3e3e;
+}
+
+.no-tickets {
+  display: none;
+}
+
+.no-tickets p {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-style: italic;
+}
+
+.sub-ticket-container {
+  margin-top: 1.2rem;
+}
+
+.ticket-table {
+  margin: 0 auto;
+  width: 90%;
+  border-collapse: collapse;
+  border: 0.2px solid #ccc;
+}
+
+.ticket-table tr {
+  height: 3rem;
+}
+
+.ticket-table tr th,
+.ticket-table tr td {
+  border: 0.2px solid #ccc;
+  text-align: center;
+}
+
+.ticket-table tr th:nth-child(1),
+.ticket-table tr td:nth-child(1) {
+  width: 10rem;
+}
+
+.ticket-table tr th:nth-child(2),
+.ticket-table tr td:nth-child(2) {
+  width: 10rem;
+}
+
+.ticket-table tr th:nth-child(3),
+.ticket-table tr td:nth-child(3) {
+  width: 10rem;
+}
+
+.ticket-table tr th:nth-child(4),
+.ticket-table tr td:nth-child(4) {
+  width: 10rem;
+}
+
+.ticket-table tr th:nth-child(5),
+.ticket-table tr td:nth-child(5) {
+  width: 6rem;
+}
+
+.ticket-table tr td a {
+  transition: all 0.2s;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.3rem;
+  font-weight: 500;
+}
+
+.ticket-table tr td a:link,
+.ticket-table tr td a:visited {
+  color: #252525;
+}
+
+.ticket-table tr td a:hover {
+  color: white;
+  background: #333;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  display: none;
+}
+
+.settings-text {
+  width: 60rem;
+  height: 3rem;
+  font-weight: 550;
+  text-align: center;
+  align-content: center;
+  box-sizing: border-box;
+  background-color: #ddd;
+  border-bottom: 4px solid #3e3e3e;
+}
+
+.del-text,
+.del-desc,
+.del-warning,
+.settings-container input {
+  width: 30rem;
+}
+
+.del-text {
+  margin-top: 1.2rem;
+}
+
+.del-warning {
+  color: red;
+  font-weight: 600;
+  font-size: 1.3rem;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+}
+
+.danger {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+.del-acc-btn {
+  background: #ff4031;
+  border-radius: 0.3rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.del-acc-btn:link,
+.del-acc-btn:visited {
+  color: white;
+}
+
+.del-acc-btn:hover {
+  background: #9e0000;
+}
+
+.del-cfm-btn {
+  background: #ff4031;
+  border-radius: 0.3rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.del-cfm-btn:link,
+.del-cfm-btn:visited {
+  color: white;
+}
+
+.del-cfm-btn:hover {
+  background: #9e0000;
+}
+
+.del-text,
+.del-desc,
+.del-warning,
+.del-acc-btn,
+.del-cfm-label,
+.del-cfm,
+.del-cfm-btn {
+  margin-bottom: 1rem;
+  margin-left: 1rem;
 }

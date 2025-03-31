@@ -1,69 +1,114 @@
-.track-form-container {
-  background: #5e626e;
-  margin: 2rem 35rem;
-  color: #f9ffd7;
-  padding: 1.8rem 1rem;
+.track-container {
+  max-width: 100rem;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #edebed;
+  padding: 2rem;
+  color: #252525;
   border-radius: 0.7rem;
+  min-height: 15rem;
+  box-shadow: 0 0.5rem 10px rgba(0, 0, 0, 0.15);
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+textarea {
+  font-family: "Open Sans";
+  font-size: 0.9rem;
+  padding: 0.5rem 0.8rem;
+  border: 0.2px solid rgba(170, 170, 170, 0.35);
+  border-radius: 0.7rem;
+  color: #252525;
+}
+
+input::placeholder {
+  color: #cdcdcd;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
+  font-weight: 500;
 }
 
 .track-heading {
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 2.4rem;
-  margin-bottom: 1.8rem;
-}
-
-.track-form {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.input-label {
-  font-weight: 500;
-  width: 20rem;
-  margin-bottom: 0.2rem;
-}
-
-.input-field {
-  font-size: 1rem;
-  padding: 0.6rem 0.8rem;
-  border: none;
-  border-radius: 0.7rem;
-  color: #4e525f;
-  background: #fdfcf0;
-  margin-bottom: 1rem;
-}
-
-.input-field::placeholder {
-  color: #b4b6bc;
-}
-
-.order-id {
-  margin-bottom: 2.4rem;
-}
-
-.or-label {
-  margin-bottom: 1rem;
-  text-align: center;
-  font-size: 1rem;
   font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  padding-bottom: 1rem;
+}
+
+.order-id-container,
+.awb-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-id,
+.awb {
+  width: 25rem;
+}
+
+.order-id-label,
+.awb-label {
+  margin-bottom: 0.6rem;
+}
+
+.track-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 .track-btn {
-  height: 38.4px;
-  justify-self: center;
-  font-weight: 500;
-  font-size: 1rem;
-  width: 100%;
-  border: none;
-  border-radius: 0.7rem;
-  color: #383b44;
-  background: #f9ffd7;
+  align-self: center;
+  background: #008d00;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
   transition: all 0.2s;
+  margin-left: 1rem;
+}
+
+.track-btn:link,
+.track-btn:visited {
+  color: white;
+  font-weight: 600;
 }
 
 .track-btn:hover {
-  cursor: pointer;
-  background: #d9debb;
+  background: #007600;
+}
+
+.error-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: red;
+  margin-right: 0.4rem;
+}
+
+.error {
+  display: flex;
+  width: 100%;
+  color: red;
+  margin: 0.5rem 0 1rem 0;
+  font-style: italic;
+  font-size: 0.8rem;
+  align-items: center;
+}
+
+.or {
+  font-weight: 600;
+  font-style: italic;
+  color: #6f6f6f;
+  padding: 0.3rem 0;
+  text-align: center;
+  margin: 1rem 0;
 }
