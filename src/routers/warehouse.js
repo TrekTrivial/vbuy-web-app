@@ -1,7 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const db = require("../db").db;
-const { adminAuth } = require("../middleware/auth");
+// const { adminAuth } = require("../middleware/auth");
 const { getBookInfo, calculatePrice } = require("../services/googlebooks");
 
 router.post("/addbook", async (req, res) => {

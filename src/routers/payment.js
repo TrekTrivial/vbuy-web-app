@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const db = require("../db").db;
 const gateway = require("../services/razorpay");
-const { auth } = require("../middleware/auth");
+const auth = require("../middleware/auth");
 
 router.post("/create", auth, async (req, res) => {
   const { id } = req.user;

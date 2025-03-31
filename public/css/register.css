@@ -66,17 +66,11 @@ label {
 .account-details,
 .address-details,
 .bank-details {
-  display: flex;
   flex-direction: column;
   width: 95%;
   padding: 2rem 0;
   border-bottom: 0.2px solid rgba(195, 188, 196, 0.8);
   margin-bottom: 1rem;
-}
-
-.account-details,
-.address-details {
-  display: none;
 }
 
 .username-container,
@@ -443,7 +437,7 @@ select {
   border-bottom: 0.2px solid #aaa;
   width: 5rem;
   text-align: center;
-  margin: 1rem 0;
+  margin: 2rem 0;
 }
 
 .bank-type-label input,

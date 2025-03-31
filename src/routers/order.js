@@ -1,7 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const db = require("../db").db;
-const { auth } = require("../middleware/auth");
+const auth = require("../middleware/auth");
 const shipping = require("../services/shiprocket");
 const { orderEmail } = require("../utils/email");
 

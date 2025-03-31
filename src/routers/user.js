@@ -3,7 +3,7 @@ const router = new express.Router();
 const db = require("../db").db;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { auth, adminAuth } = require("../middleware/auth");
+const auth = require("../middleware/auth");
 const getBankDetails = require("../utils/bank_details");
 const {
   sendOTPemail,
@@ -12,6 +12,7 @@ const {
 } = require("../utils/email");
 
 router.post("/register", async (req, res) => {
+  console.log(req.body);
   const {
     userID,
     firstName,
@@ -23,25 +24,8 @@ router.post("/register", async (req, res) => {
     city,
     state_,
     pincode,
-    otp,
   } = req.body;
   const name = firstName + " " + lastName;
-  // console.log(req.body);
-  const data = await db.query("SELECT * FROM OTP_VERIFICATION");
-  // console.log(data[0]);
-  const [otpRows] = await db.query(
-    "SELECT OTP, EXPIRES_AT FROM OTP_VERIFICATION WHERE email = ?",
-    [email]
-  );
-  // console.log(otpRows[0].);
-
-  if (otpRows.length === 0 || otpRows[0].OTP !== otp) {
-    return res.status(400).json({ error: "Invalid OTP." });
-  }
-
-  if (new Date() > new Date(otpRows[0].EXPIRES_AT)) {
-    return res.status(400).json({ error: "OTP expired. Request a new one." });
-  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -71,6 +55,8 @@ router.post("/register", async (req, res) => {
       pincode,
     ]);
 
+    console.log("hi");
+
     await sendWelcomeEmail(name, email);
     await db.query("DELETE FROM OTP_VERIFICATION WHERE email = ?", [email]);
 
@@ -78,14 +64,6 @@ router.post("/register", async (req, res) => {
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }
-
-  //   debug queries
-  // try {
-  // const data = await db.query("SELECT * FROM USER_ADDRESS");
-  // console.log(data[0]);
-  // } catch (e) {
-  //   console.log(e);
-  // }
 });
 
 router.post("/request_otp", async (req, res) => {
@@ -96,15 +74,36 @@ router.post("/request_otp", async (req, res) => {
       `INSERT INTO OTP_VERIFICATION (email, OTP, EXPIRES_AT) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE OTP = ?, EXPIRES_AT = ?`,
       [email, otp, expires_at, otp, expires_at]
     );
-    res.status(200).send({ message: "OTP sent", otp });
+    res.status(200).send({ message: "OTP sent" });
   } catch (e) {
     res.status(500).send({ error: "Error sending OTP", e });
   }
 });
 
+router.post("/verify_otp", async (req, res) => {
+  const { email, otp } = req.body;
+  try {
+    const [otpRows] = await db.query(
+      "SELECT OTP, EXPIRES_AT FROM OTP_VERIFICATION WHERE email = ?",
+      [email]
+    );
+
+    if (otpRows.length === 0 || otpRows[0].OTP !== otp) {
+      return res.status(403).json({ error: "Invalid OTP." });
+    }
+
+    if (new Date() > new Date(otpRows[0].EXPIRES_AT)) {
+      return res.status(400).json({ error: "OTP expired. Request a new one." });
+    }
+    res.status(200).send({ message: "OTP valid" });
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
 router.post("/debug_queries", async (req, res) => {
   try {
-    const data = await db.query(`SELECT * FROM SHIPPING`);
+    const data = await db.query(`DESCRIBE BANK_ACCOUNT`);
     console.log(data[0]);
     res.send();
   } catch (e) {
@@ -200,10 +199,21 @@ router.get("/profile/address", auth, async (req, res) => {
 });
 
 router.get("/all", async (req, res) => {
-  const sql = `SELECT * FROM USERS`;
+  const sql = `SELECT userID FROM USERS`;
   try {
     const [results] = await db.query(sql);
     res.status(200).send({ results });
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.get("/user/:userID", async (req, res) => {
+  const { userID } = req.params;
+  const sql = `SELECT COUNT(*) AS count FROM USERS WHERE userID=?`;
+  try {
+    const [results] = await db.query(sql, [userID]);
+    res.status(200).send({ count: results[0].count });
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }
@@ -274,15 +284,13 @@ router.delete("/delete", auth, async (req, res) => {
   }
 });
 
-router.post("/bank_details/create", auth, async (req, res) => {
-  const { id } = req.user;
-  const { type, bankDetails } = req.body;
+router.post("/bank_details/create", async (req, res) => {
+  const { id, type, bankDetails } = req.body;
   const accountID = id + "__bank";
 
   try {
     if (type === "bank") {
       const { accountNumber, ifsc, accountHolderName } = bankDetails;
-      const { bank, branch, state } = await getBankDetails(ifsc);
 
       const sql = `INSERT INTO BANK_ACCOUNT (accountID, userID, accountNumber, ifsc, bank, accountHolderName) VALUES (?, ?, ?, ?, ?, ?)`;
       await db.query(sql, [
@@ -295,10 +303,10 @@ router.post("/bank_details/create", auth, async (req, res) => {
       ]);
       return res.status(201).send({ message: "Bank account details added" });
     } else if (type === "vpa") {
-      const { vpa_id } = bankDetails;
+      const { vpa_id, vpa_name } = bankDetails;
 
-      const sql = `INSERT INTO BANK_ACCOUNT (accountID, userID, vpaID) VALUES (?, ?, ?)`;
-      await db.query(sql, [accountID, id, vpa_id]);
+      const sql = `INSERT INTO BANK_ACCOUNT (accountID, userID, vpaID, accountHolderName) VALUES (?, ?, ?, ?)`;
+      await db.query(sql, [accountID, id, vpa_id, vpa_name]);
       return res.status(201).send({ message: "VPA details added" });
     }
   } catch (e) {
@@ -346,6 +354,16 @@ router.patch("/bank_details/modify", auth, async (req, res) => {
     }
   } catch (e) {
     res.status(500).send({ error: "Error updating bank details", e });
+  }
+});
+
+router.get("/validate_ifsc/:ifsc", async (req, res) => {
+  const { ifsc } = req.params;
+  try {
+    const { bank, branch, state } = await getBankDetails(ifsc);
+    res.status(200).send({ bank_branch: bank + ", " + branch + ", " + state });
+  } catch (e) {
+    res.status(500).send({ e });
   }
 });
 

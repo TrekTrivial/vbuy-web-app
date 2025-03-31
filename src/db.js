@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const mysql = require("mysql2");
-const { create } = require("domain");
 require("dotenv").config();
 
 const pool = mysql.createPool({
@@ -25,19 +24,24 @@ pool.getConnection((error, connection) => {
 
 const db = pool.promise();
 
-function createTables() {
-  const SQL_Schema = fs
-    .readFileSync(path.join(__dirname, "../db/schema.sql"))
-    .toString();
-  SQL_Schema.split(";").forEach(async db_query => {
-    try {
-      if (db_query === "") return;
-      await db.query(db_query);
-      // console.log("Schema created successfully!");
-    } catch (e) {
-      console.error("Error creating schema!", e);
+async function createTables() {
+  try {
+    const SQL_Schema = fs
+      .readFileSync(path.join(__dirname, "../db/schema.sql"))
+      .toString();
+    const queries = SQL_Schema.split(";")
+      .map(q => q.trim())
+      .filter(q => q !== "");
+
+    for (const query of queries) {
+      await db.query(query);
+      // console.log("Query executed successfully");
     }
-  });
+
+    // console.log("Schema created successfully!");
+  } catch (e) {
+    console.error("Error creating schema!", e);
+  }
 }
 
 module.exports = { db, createTables };

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const db = require("../db").db;
-const { auth, adminAuth } = require("../middleware/auth");
+const auth = require("../middleware/auth");
 const { supportEmail, supportReply } = require("../utils/email");
 const { fromWeb } = require("form-data");
 
