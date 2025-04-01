@@ -91,9 +91,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const data1 = await response1.json();
 
+    console.log(data1);
+
     document.querySelector(".street").value = data1.street;
     document.querySelector(".city").value = data1.city;
-    document.querySelector(".state").value = data1.state_;
+    document.querySelector(".state").value = data1.state;
     document.querySelector(".pincode").value = data1.pincode;
 
     const response2 = await fetch(`${API_BASE_URL}/user/bank_details`, {

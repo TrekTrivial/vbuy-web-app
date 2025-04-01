@@ -80,5 +80,9 @@ app.get("/faqs", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/faqs.html"));
 });
 
+app.get("/track", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/trackorder.html"));
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server up and running on port ${PORT}!`));
