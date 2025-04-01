@@ -427,10 +427,10 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
   };
 
   console.log(userDetails);
-  console.log(acc_type.value);
+  console.log(acc_type);
 
   try {
-    if (acc_type.value === "vpa") {
+    if (acc_type === "vpa") {
       if (!validateBank("vpa")) {
         return;
       }
@@ -477,7 +477,7 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
 
       document.cookie = `token=${data1.token}; path=/; max-age=86400; SameSite=Strict`;
       window.location.href = "dashboard.html";
-    } else if (acc_type.value === "bank") {
+    } else if (acc_type === "bank") {
       const bankDetails = {
         accountNumber: accountNumber.value,
         ifsc: ifsc.value,

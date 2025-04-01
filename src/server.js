@@ -1,13 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const auth = require("./middleware/auth");
 require("./db").createTables();
 require("dotenv").config();
+const redirectIfAuthenticated = require("./middleware/authRedirect");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
 const userRouter = require("./routers/user");
@@ -30,11 +32,11 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-app.get("/register", (req, res) => {
+app.get("/register", redirectIfAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, "../public/register.html"));
 });
 
-app.get("/login", (req, res) => {
+app.get("/login", redirectIfAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, "../public/login.html"));
 });
 
@@ -52,6 +54,14 @@ app.get("/about", (req, res) => {
 
 app.get("/order", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/order.html"));
+});
+
+app.get("/sell", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/sell.html"));
+});
+
+app.get("/support", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/support.html"));
 });
 
 const PORT = process.env.PORT || 3000;

@@ -4,15 +4,27 @@ const db = require("../db").db;
 const auth = require("../middleware/auth");
 
 router.post("/additem", auth, async (req, res) => {
-  const { isbn, quantity, costPrice } = req.body;
+  const { isbn, quantity } = req.body;
+  let { costPrice } = req.body;
+  costPrice = Number(costPrice);
   const { id } = req.user;
-  const cartID = id + "__cart";
-  const cartStatus = "full";
+  const cartStatus = "not empty";
 
   console.log(req.body);
 
   try {
-    const [results] = await db.query(`SELECT * FROM CART WHERE userID=?`, [id]);
+    const [result] = await db.query(
+      `SELECT * FROM CART WHERE userID=? AND cartStatus=?`,
+      [id, "fulfilled"]
+    );
+    const num = result.length;
+    const cartID = `${id}__cart_${num + 1}`;
+
+    const [results] = await db.query(`SELECT * FROM CART WHERE cartID=?`, [
+      `${id}__cart_${num + 1}`,
+    ]);
+
+    console.log(results.length);
     if (results.length === 0) {
       console.log("hi");
       await db.query(
@@ -23,12 +35,12 @@ router.post("/additem", auth, async (req, res) => {
           JSON.stringify([isbn]),
           JSON.stringify([quantity]),
           JSON.stringify([costPrice]),
-          costPrice ? costPrice * quantity : 0,
+          costPrice * quantity,
           cartStatus,
         ]
       );
       return res.status(201).send({ message: "Added to cart" });
-    } else if (results.length > 0) {
+    } else if (results.length === 1) {
       const cart = results[0];
       console.log(cart);
       const cartTotal = Number(cart.cartTotal) + costPrice * quantity;
@@ -41,7 +53,7 @@ router.post("/additem", auth, async (req, res) => {
           costPrice,
           cartTotal,
           cartStatus,
-          cartID,
+          `${id}__cart_${num + 1}`,
         ]);
         return res.status(200).send({ message: "Cart updated" });
       }
@@ -50,9 +62,9 @@ router.post("/additem", auth, async (req, res) => {
         isbn,
         quantity,
         costPrice,
-        quantity * costPrice,
+        cartTotal,
         cartStatus,
-        cartID,
+        `${id}__cart_${num + 1}`,
       ]);
       console.log("Hello");
       res.status(200).send({ message: "Cart updated" });
@@ -64,21 +76,44 @@ router.post("/additem", auth, async (req, res) => {
 
 router.get("/", auth, async (req, res) => {
   const { id } = req.user;
-  const sql = `SELECT * FROM CART WHERE userID=?`;
+  const sql = `SELECT * FROM CART WHERE userID=? and cartStatus=?`;
   try {
-    const [result] = await db.query(sql, [id]);
-    res.status(200).send({ result });
+    const [result] = await db.query(sql, [id, "not empty"]);
+    res.status(200).send(result);
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }
 });
 
-router.delete("/delete", auth, async (req, res) => {
-  const { id } = req.user;
-  const sql = `DELETE FROM CART WHERE userID=?`;
+router.delete("/delete/:cartID", auth, async (req, res) => {
+  const { cartID } = req.params;
+  const sql = `DELETE FROM CART WHERE cartID=?`;
   try {
-    await db.query(sql, [id]);
+    await db.query(sql, [cartID]);
     res.status(200).send({ message: "Cart emptied!" });
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.post("/remove", auth, async (req, res) => {
+  const { cartID, isbn } = req.body;
+
+  try {
+    const [result] = await db.query(`SELECT * FROM CART WHERE cartID=?`, [
+      cartID,
+    ]);
+    const cart = result[0];
+    const index = cart.isbn.indexOf(isbn);
+
+    const cartTotal =
+      Number(cart.cartTotal) - cart.quantity[index] * cart.costPrice[index];
+
+    await db.query(
+      `UPDATE CART SET isbn=JSON_REMOVE(isbn, '$[?]'), quantity=JSON_REMOVE(quantity, '$[?]'), costPrice=JSON_REMOVE(costPrice, '$[?]'), cartTotal=? WHERE cartID=?`,
+      [index, index, index, cartTotal, cartID]
+    );
+    res.status(200).send({ message: "Cart updated!" });
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }

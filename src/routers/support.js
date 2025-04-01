@@ -61,4 +61,21 @@ router.patch("/reply/:ticketID", async (req, res) => {
   }
 });
 
+router.get("/tickets", auth, async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    const [results] = await db.query(`SELECT * FROM SUPPORT WHERE userID=?`, [
+      id,
+    ]);
+
+    if (results.length === 0) {
+      return res.status(404).send({ error: "No tickets found" });
+    }
+    res.status(200).send(results);
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
 module.exports = router;

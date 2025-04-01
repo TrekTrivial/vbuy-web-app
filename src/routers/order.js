@@ -191,8 +191,6 @@ router.post(
 router.get("/myorders", auth, async (req, res) => {
   const { id } = req.user;
 
-  console.log(id);
-
   try {
     const [result] = await db.query(`SELECT * FROM ORDERS WHERE userID=?`, [
       id,

@@ -103,8 +103,10 @@ router.post("/verify_otp", async (req, res) => {
 
 router.post("/debug_queries", async (req, res) => {
   try {
-    const data = await db.query(`DESCRIBE BANK_ACCOUNT`);
+    const data = await db.query(`SELECT * FROM CART`);
     console.log(data[0]);
+    // const test = data[0].cartTotal;
+    // console.log(Number(test));
     res.send();
   } catch (e) {
     console.log(e);
@@ -150,6 +152,7 @@ router.post("/logout", auth, async (req, res) => {
   const sql = `UPDATE USERS SET tokens = JSON_REMOVE(tokens, COALESCE(JSON_UNQUOTE(JSON_SEARCH(tokens, 'one', ?)), '$')) WHERE userID = ?`;
   try {
     const response = await db.query(sql, [req.token, req.user.id]);
+    res.clearCookie("token", { path: "/" });
     res.status(200).send({ message: "Logged out" });
   } catch (e) {
     return res.status(401).send({ error: e });
@@ -219,6 +222,25 @@ router.get("/user/:userID", async (req, res) => {
   }
 });
 
+router.post("/verify_pwd", auth, async (req, res) => {
+  const { id } = req.user;
+  const { password } = req.body;
+
+  try {
+    const [result] = await db.query(`SELECT passwd FROM USERS WHERE userID=?`, [
+      id,
+    ]);
+    const isMatch = await bcrypt.compare(password, result[0].passwd);
+
+    if (!isMatch) {
+      return res.status(400).send({ error: "Password not verified" });
+    }
+    res.status(200).send({ message: "Password verified" });
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
 router.patch("/update", auth, async (req, res) => {
   const { id } = req.user;
   const updates = req.body;
@@ -278,6 +300,7 @@ router.delete("/delete", auth, async (req, res) => {
     const name = result[0].firstName + " " + result[0].lastName;
     await db.query(sql, [id]);
     await sendCancellationEmail(name, email);
+    res.clearCookie("token", { path: "/" });
     res.status(200).send({ message: "User deleted" });
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
@@ -289,8 +312,9 @@ router.post("/bank_details/create", async (req, res) => {
   const accountID = id + "__bank";
 
   try {
-    if (type === "bank") {
+    if (type == "bank") {
       const { accountNumber, ifsc, accountHolderName } = bankDetails;
+      const { bank, branch, state } = await getBankDetails(ifsc);
 
       const sql = `INSERT INTO BANK_ACCOUNT (accountID, userID, accountNumber, ifsc, bank, accountHolderName) VALUES (?, ?, ?, ?, ?, ?)`;
       await db.query(sql, [
@@ -302,7 +326,7 @@ router.post("/bank_details/create", async (req, res) => {
         accountHolderName,
       ]);
       return res.status(201).send({ message: "Bank account details added" });
-    } else if (type === "vpa") {
+    } else if (type == "vpa") {
       const { vpa_id, vpa_name } = bankDetails;
 
       const sql = `INSERT INTO BANK_ACCOUNT (accountID, userID, vpaID, accountHolderName) VALUES (?, ?, ?, ?)`;
@@ -320,7 +344,7 @@ router.get("/bank_details", auth, async (req, res) => {
   try {
     const [result] = await db.query(sql, [id]);
     const bankAccount = result[0];
-    res.status(200).send({ bankAccount });
+    res.status(200).send(bankAccount);
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }
@@ -346,10 +370,10 @@ router.patch("/bank_details/modify", auth, async (req, res) => {
       ]);
       return res.status(200).send({ message: "Bank details updated!" });
     } else if (type === "vpa") {
-      const { vpa_id } = bankDetails;
+      const { vpa_id, vpa_name } = bankDetails;
 
       const sql = `UPDATE BANK_ACCOUNT SET vpaID=?, accountNumber=?, ifsc=?, bank=?, accountHolderName=? WHERE userID=?`;
-      await db.query(sql, [vpa_id, null, null, null, null, id]);
+      await db.query(sql, [vpa_id, null, null, null, vpa_name, id]);
       return res.status(200).send({ message: "VPA details updated" });
     }
   } catch (e) {

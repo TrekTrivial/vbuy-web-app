@@ -94,7 +94,7 @@ select {
 .profile-container {
   display: flex;
   flex-direction: column;
-  display: none;
+  /* display: none; */
 }
 
 .prof-tabs-container {
@@ -131,7 +131,7 @@ select {
 .prof-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  display: none;
+  /* display: none; */
 }
 
 .sub-prof-container {
@@ -365,6 +365,10 @@ select {
   align-items: center;
 }
 
+.pwd-btns {
+  margin-top: 2rem;
+}
+
 .pwd-change-btn {
   margin-left: 0.6rem;
 }
@@ -451,6 +455,7 @@ select {
   flex-direction: column;
   margin-top: 1.2rem;
   margin-left: 1rem;
+  display: none;
 }
 
 .bank-container label {
@@ -466,13 +471,13 @@ select {
 }
 
 .vpa-container {
-  /* display: none; */
+  display: none;
 }
 
 .bank-btns {
   display: flex;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .bank-cfm-btn,
@@ -624,7 +629,7 @@ select {
   width: 60rem;
   display: flex;
   flex-direction: column;
-  /* display: none; */
+  display: none;
 }
 
 .tickets-text {
@@ -800,4 +805,17 @@ select {
 .del-cfm-btn {
   margin-bottom: 1rem;
   margin-left: 1rem;
+}
+
+.otp-btns {
+  display: flex;
+}
+
+.address-btns {
+  display: flex;
+  align-items: center;
+}
+
+.address-cfm-btn {
+  margin-left: 0.8rem;
 }
