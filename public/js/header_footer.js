@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", function () {
             throw new Error("Error");
           }
 
-          window.location.href = "login.html";
+          window.location.href = "/login";
         } catch (err) {
           console.error(err);
         }

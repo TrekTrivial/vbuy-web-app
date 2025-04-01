@@ -27,6 +27,6 @@ document.querySelector(".login-btn").addEventListener("click", async e => {
     const data = await response.json();
 
     document.cookie = `token=${data.token}; path=/; max-age=86400; SameSite=Strict`;
-    window.location.href = "dashboard.html";
+    window.location.href = "/dashboard";
   } catch (err) {}
 });

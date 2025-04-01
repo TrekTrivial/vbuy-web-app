@@ -68,5 +68,17 @@ app.get("/placeorder", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/placeorder.html"));
 });
 
+app.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/privacy.html"));
+});
+
+app.get("/terms", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/terms.html"));
+});
+
+app.get("/faqs", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/faqs.html"));
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server up and running on port ${PORT}!`));

@@ -45,7 +45,7 @@ document.querySelector(".support-btn").addEventListener("click", async e => {
 
     if (response.ok) {
       alert("Support ticket created!");
-      window.location.href = "support.html";
+      window.location.href = "/support";
     }
   } catch (err) {
     console.error(err);
