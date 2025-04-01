@@ -195,7 +195,13 @@ router.get("/profile/address", auth, async (req, res) => {
       return res.status(404).send({ error: "User not found" });
     }
     const user = result[0];
-    res.status(200).send(user);
+    const address = {
+      street: user.street,
+      city: user.city,
+      state: user.state_,
+      pincode: user.pincode,
+    };
+    res.status(200).send(address);
   } catch (e) {
     res.status(500).send({ error: "Database error!", e });
   }

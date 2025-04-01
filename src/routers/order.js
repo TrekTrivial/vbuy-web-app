@@ -4,6 +4,7 @@ const db = require("../db").db;
 const auth = require("../middleware/auth");
 const shipping = require("../services/shiprocket");
 const { orderEmail } = require("../utils/email");
+const { getBookInfo } = require("../services/googlebooks");
 
 router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
   const { id, email } = req.user;
@@ -216,6 +217,51 @@ router.get("/shipping/:orderID", auth, async (req, res) => {
       orderID,
     ]);
     res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.get("/book/:isbn", async (req, res) => {
+  const { isbn } = req.params;
+
+  try {
+    const book = await getBookInfo(isbn);
+
+    if (!book) {
+      const result = {
+        title: "Couldn't find title",
+        authors: "Couldn't find author",
+        mrp: "Couldn't find MRP",
+      };
+      return res.status(200).send(result);
+    }
+
+    const title = book.volumeInfo.title || "Title unknown";
+    const authors = book.volumeInfo.authors?.join(", ") || "Author(s) unknown";
+    const mrp = Math.ceil(book.saleInfo?.retailPrice?.amount) || "N/A";
+
+    const result = {
+      title,
+      authors,
+      mrp,
+    };
+
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.get("/cart", auth, async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    const [data] = await db.query(
+      `SELECT * FROM CART WHERE userID=? AND cartStatus=?`,
+      [id, "not empty"]
+    );
+    res.status(200).send(data);
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }

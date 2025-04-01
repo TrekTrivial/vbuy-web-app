@@ -64,5 +64,9 @@ app.get("/support", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/support.html"));
 });
 
+app.get("/placeorder", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/placeorder.html"));
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server up and running on port ${PORT}!`));

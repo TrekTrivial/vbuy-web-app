@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const db = require("../db").db;
 const auth = require("../middleware/auth");
+const { getBookInfo } = require("../services/googlebooks");
 
 router.post("/additem", auth, async (req, res) => {
   const { isbn, quantity } = req.body;
@@ -114,6 +115,37 @@ router.post("/remove", auth, async (req, res) => {
       [index, index, index, cartTotal, cartID]
     );
     res.status(200).send({ message: "Cart updated!" });
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.get("/book/:isbn", async (req, res) => {
+  const { isbn } = req.params;
+
+  try {
+    const book = await getBookInfo(isbn);
+
+    if (!book) {
+      const result = {
+        title: "Couldn't find title",
+        authors: "Couldn't find author",
+        mrp: "Couldn't find MRP",
+      };
+      return res.status(200).send(result);
+    }
+
+    const title = book.volumeInfo.title || "Title unknown";
+    const authors = book.volumeInfo.authors?.join(", ") || "Author(s) unknown";
+    const mrp = Math.ceil(book.saleInfo?.listPrice?.amount) || "N/A";
+
+    const result = {
+      title,
+      authors,
+      mrp,
+    };
+
+    res.status(200).send(result);
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }

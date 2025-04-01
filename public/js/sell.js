@@ -9,6 +9,16 @@ const resultsPerPage = 10; // Number of results per page
 let currentPage = 0;
 let totalResults = 0;
 
+document.addEventListener("DOMContentLoaded", async function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const query = urlParams.get("q");
+
+  if (query) {
+    queryElement.value = query;
+    fetchBooks(query, 0);
+  }
+});
+
 const validateQuery = () => {
   let isValid = true;
   if (queryElement.value.trim() === "") {

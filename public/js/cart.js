@@ -1,25 +1,46 @@
 "use strict";
 
-function makeCartTable(cart) {
+async function makeCartTable(cart) {
   const table = document.querySelector(".cart-table");
 
   const len = cart.isbn.length;
 
-  for (let i = 0; i < len; ++i) {
-    const row = document.createElement("tr");
+  try {
+    for (let i = 0; i < len; ++i) {
+      const row = document.createElement("tr");
 
-    row.innerHTML = `
-    <td>${i + 1}</td>
-    <td>${cart.isbn[i]}</td>
-    <td>test</td>
-    <td>test</td>
-    <td>${cart.quantity[i]}</td>
-    <td>test</td>
-    <td>${cart.costPrice[i]}</td>
-    <td>${cart.quantity[i] * cart.costPrice[i]}</td>
-    <td><a href="" data-isbn=${cart.isbn[i]} class="remove-btn">&cross;</a></td>
-`;
-    table.appendChild(row);
+      const isbn = cart.isbn[i];
+
+      const response = await fetch(`${API_BASE_URL}/carts/book/${isbn}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error");
+      }
+
+      const details = await response.json();
+
+      row.innerHTML = `
+      <td>${i + 1}</td>
+      <td>${isbn}</td>
+      <td>${details.title}</td>
+      <td>${details.authors}</td>
+      <td>${cart.quantity[i]}</td>
+      <td>${details.mrp}</td>
+      <td>${cart.costPrice[i]}</td>
+      <td>${cart.quantity[i] * cart.costPrice[i]}</td>
+      <td><a href="" data-isbn=${
+        cart.isbn[i]
+      } class="remove-btn">&cross;</a></td>
+  `;
+      table.appendChild(row);
+    }
+  } catch (e) {
+    console.error(e);
   }
 }
 

@@ -55,7 +55,7 @@ router.get("/books/:isbn", async (req, res) => {
   const sql = `SELECT * FROM BOOKS WHERE isbn=?`;
   try {
     const [result] = await db.query(sql, [isbn]);
-    res.status(200).send({ result });
+    res.status(200).send(result);
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }
