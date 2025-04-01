@@ -27,27 +27,27 @@
     <div id="header-container"></div>
 
     <section class="order-container">
-      <p class="order-heading">Order #0001</p>
+      <p class="order-heading">Order</p>
 
       <div class="sub-order-container">
         <div class="order-id-container info-container">
           <label class="order-id-label">Order ID</label>
-          <p class="order-id">0001</p>
+          <p class="order-id"></p>
         </div>
 
         <div class="order-date-container info-container">
           <label class="order-date-label">Order date</label>
-          <p class="order-date">16/11/2024</p>
+          <p class="order-date"></p>
         </div>
 
         <div class="address-container info-container">
           <label class="address-label">Shipping from</label>
-          <p class="address">Some place, 110017</p>
+          <p class="address"></p>
         </div>
 
         <div class="order-status-container info-container">
           <label class="order-status-label">Order status</label>
-          <p class="order-status">Confirmed</p>
+          <p class="order-status"></p>
         </div>
 
         <div class="item-desc-container info-container">
@@ -61,51 +61,43 @@
               <th>Quantity</th>
               <th>Total</th>
             </tr>
-            <tr>
-              <td>S.no</td>
-              <td>ISBN</td>
-              <td>Title & Author</td>
-              <td>Price</td>
-              <td>Quantity</td>
-              <td>Total</td>
-            </tr>
           </table>
         </div>
 
         <div class="ship-container info-container">
           <label class="ship-label">Shipper's order ID</label>
-          <p class="ship">112233</p>
+          <p class="ship"></p>
         </div>
 
         <div class="awb-container info-container">
           <label class="awb-label">AWB number</label>
-          <p class="awb">112233445566</p>
+          <p class="awb"></p>
         </div>
 
         <div class="awb-name-container info-container">
           <label class="awb-name-label">Transporter</label>
-          <p class="awb-name">Blue Dart</p>
+          <p class="awb-name"></p>
         </div>
 
         <div class="ship-status-container info-container">
           <label class="ship-status-label">Shipping status</label>
-          <p class="ship-status">In transit</p>
+          <p class="ship-status"></p>
         </div>
 
         <div class="order-count-container">
           <label class="order-count-label">Total items</label>
-          <p class="order-count">6</p>
+          <p class="order-count"></p>
         </div>
 
         <div class="order-total-container">
           <label class="order-total-label">Order total</label>
-          <p class="order-total">Rs. 60.00</p>
+          <p class="order-total"></p>
         </div>
 
         <div class="payment-container">
-          <a href="" class="payment-info-btn">Payment info</a>
+          <!-- <a href="" class="payment-info-btn">Payment info</a> -->
 
-          <a href="" class="invoice-btn"
+          <a href="" class="invoice-btn" target="_blank"
             ><img
               src="img/download.gif"
               alt="Download animation"
@@ -114,7 +106,10 @@
           >
         </div>
 
-        <a href="" class="cancel-order-btn">Cancel order</a>
+        <div class="order-btns">
+          <a href="" class="cancel-order-btn">Cancel order</a>
+          <a href="" class="track-order-btn" target="_blank">Track</a>
+        </div>
       </div>
     </section>
 
@@ -122,5 +117,6 @@
 
     <script src="js/header_footer.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/order.js"></script>
   </body>
 </html>

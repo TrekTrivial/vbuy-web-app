@@ -11,6 +11,8 @@ router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
   const SRtoken = req.SRtoken;
   const orderDetails = req.body;
 
+  const orderID = orderDetails.order_id;
+
   try {
     const [user] = await db.query(
       `SELECT firstName, lastName FROM USERS WHERE userID=?`,
@@ -22,22 +24,14 @@ router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
     const name = user[0].firstName + " " + user[0].lastName;
 
     const [result] = await db.query(
-      `SELECT cartID, cartTotal, quantity FROM CART WHERE userID=?`,
-      [id]
+      `SELECT cartID, cartTotal, quantity FROM CART WHERE userID=? AND cartStatus=?`,
+      [id, "not empty"]
     );
 
-    console.log(result);
-    // if (result.length === 0) {
-    //   res.status(400).send({ error: "Empty cart" });
-    //   return;
-    // }
+    let count = 0;
+    result[0].quantity.forEach(num => (count += num));
 
-    const [orders] = await db.query(`SELECT * FROM ORDERS WHERE userID=?`, [
-      id,
-    ]);
-    const count = orders.length;
-    console.log(count);
-    const orderID = "VB-" + id + `-${count + 1}`;
+    console.log(result);
 
     const response = await shipping.createOrder(SRtoken, orderDetails);
     const sql1 = `INSERT INTO ORDERS (orderID, userID, cartID, item_count, orderTotal, orderDate, orderStatus) VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -45,23 +39,11 @@ router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
       orderID,
       id,
       result[0].cartID,
-      result[0].quantity[0],
+      count,
       result[0].cartTotal,
-      Date(Date.now()),
+      orderDetails.order_date,
       "Confirmed",
     ]);
-
-    console.log(
-      orderID,
-      id,
-      result[0].cartID,
-      result[0].quantity[0],
-      result[0].cartTotal,
-      Date.now(),
-      "Confirmed"
-    );
-
-    console.log(response1);
 
     const { order_id, shipment_id } = response;
 
@@ -80,7 +62,7 @@ router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
 
     await orderEmail("order_confirm", name, email, orderID);
 
-    res.status(201).send({ message: "Order created" });
+    res.status(201).send({ shipment_id, order_id });
   } catch (e) {
     res.status(500).send({ error: "Database error", e: e.message });
   }
@@ -89,6 +71,7 @@ router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
 router.patch(
   "/create/awb/:shipment_id",
   shipping.getAuthTokenSR,
+  auth,
   async (req, res) => {
     const { shipment_id } = req.params;
     const SRtoken = req.SRtoken;
@@ -170,8 +153,6 @@ router.post(
     const SRtoken = req.SRtoken;
     const { order_id } = req.params;
 
-    console.log(order);
-
     try {
       const response = await shipping.generateInvoice(SRtoken, [order_id]);
 
@@ -197,13 +178,29 @@ router.get("/myorders", auth, async (req, res) => {
       id,
     ]);
 
-    if (result.length === 0) {
-      res.status(404).send({ message: "No orders found" });
-      return;
-    }
+    // if (result.length === 0) {
+    //   res.status(200).send({ message: "NIL" });
+    //   return;
+    // }
     res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e: e.message });
+  }
+});
 
-    console.log(result);
+router.get("/myorders/:orderID", auth, async (req, res) => {
+  const { orderID } = req.params;
+
+  try {
+    const [result] = await db.query(`SELECT * FROM ORDERS WHERE orderID=?`, [
+      orderID,
+    ]);
+
+    // if (result.length === 0) {
+    //   res.status(200).send({ message: "NIL" });
+    //   return;
+    // }
+    res.status(200).send(result[0]);
   } catch (e) {
     res.status(500).send({ error: "Database error", e: e.message });
   }
@@ -216,7 +213,7 @@ router.get("/shipping/:orderID", auth, async (req, res) => {
     const [result] = await db.query(`SELECT * FROM SHIPPING WHERE orderID=?`, [
       orderID,
     ]);
-    res.status(200).send(result);
+    res.status(200).send(result[0]);
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }
@@ -262,6 +259,34 @@ router.get("/cart", auth, async (req, res) => {
       [id, "not empty"]
     );
     res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.get("/cart/done", auth, async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    const [data] = await db.query(
+      `SELECT * FROM CART WHERE userID=? AND cartStatus=?`,
+      [id, "fulfilled"]
+    );
+    res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.patch("/cart/changestatus", auth, async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    await db.query(
+      `UPDATE CART SET cartStatus=? WHERE userID=? AND cartStatus=?`,
+      ["fulfilled", id, "not empty"]
+    );
+    res.status(200).send();
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }

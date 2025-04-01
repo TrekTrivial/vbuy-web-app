@@ -103,7 +103,9 @@ router.post("/verify_otp", async (req, res) => {
 
 router.post("/debug_queries", async (req, res) => {
   try {
-    const data = await db.query(`SELECT * FROM CART`);
+    const data = await db.query(
+      `ALTER TABLE CART MODIFY COLUMN cartID VARCHAR(40)`
+    );
     console.log(data[0]);
     // const test = data[0].cartTotal;
     // console.log(Number(test));

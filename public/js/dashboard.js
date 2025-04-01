@@ -9,7 +9,9 @@ function addOrderRow(order) {
         <td>${order.orderTotal}</td>
         <td>${order.orderDate}</td>
         <td>${order.orderStatus}</td>
-        <td><a href="">View order</a></td>
+        <td><a href="/order?q=${encodeURIComponent(
+          order.orderID
+        )}">View order</a></td>
     `;
 
   table.appendChild(row);

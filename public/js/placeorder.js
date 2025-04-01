@@ -103,49 +103,190 @@ document
   .addEventListener("click", async e => {
     e.preventDefault();
 
+    const token = getTokenFromCookies();
+
     try {
-      const response1 = await fetch(`${API_BASE_URL}/user/`);
+      const response = await fetch(`${API_BASE_URL}/user/profile/address`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error");
+      }
+
+      const data = await response.json();
+
+      const response1 = await fetch(`${API_BASE_URL}/user/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response1.ok) {
+        throw new Error("Error");
+      }
+
+      const data1 = await response1.json();
+
+      console.log(data1);
+
+      const userID = data1.userID;
+
+      const response2 = await fetch(`${API_BASE_URL}/orders/myorders`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response2.ok) {
+        throw new Error("Error");
+      }
+
+      const data2 = await response2.json();
+
+      const count = data2.length;
+      const orderID = `VB-${userID}-${count + 1}`;
+
+      const response3 = await fetch(`${API_BASE_URL}/orders/cart`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response3.ok) {
+        throw new Error("Error");
+      }
+
+      const data3 = await response3.json();
+      const cart = data3[0];
+      const len = cart.isbn.length;
+
+      let order_items = [];
+
+      for (let i = 0; i < len; ++i) {
+        const item = {
+          name: `${cart.isbn[i]}`,
+          sku: `VBUY_${i}`,
+          units: cart.quantity[i],
+          selling_price: cart.costPrice[i],
+          discount: "",
+          tax: "",
+          hsn: "",
+        };
+        order_items.push(item);
+      }
+
+      const orderDetails = {
+        order_id: orderID,
+        order_date: getFormattedDateTime(),
+        pickup_location: "Home",
+        channel_id: "",
+        comment: "Test order",
+        billing_customer_name: `${data1.firstName}`,
+        billing_last_name: `${data1.lastName}`,
+        billing_address: `${data.street}`,
+        billing_address_2: "",
+        billing_city: `${data.city}`,
+        billing_pincode: `${data.pincode}`,
+        billing_state: `${data.state}`,
+        billing_country: "India",
+        billing_email: `${data1.email}`,
+        billing_phone: `${data1.mobile_no}`,
+        shipping_is_billing: false,
+        shipping_customer_name: "VBuy",
+        shipping_last_name: "",
+        shipping_address: "SGSITS College",
+        shipping_address_2: "",
+        shipping_city: "Indore",
+        shipping_pincode: "452003",
+        shipping_country: "India",
+        shipping_state: "Madhya Pradesh",
+        shipping_email: "vbuy@gmail.com",
+        shipping_phone: "9891155858",
+        order_items,
+        payment_method: "Prepaid",
+        shipping_charges: 0,
+        giftwrap_charges: 0,
+        transaction_charges: 0,
+        total_discount: 0,
+        sub_total: `${cart.cartTotal}`,
+        length: 10,
+        breadth: 10,
+        height: 20,
+        weight: 2,
+      };
+
+      const result = await fetch(`${API_BASE_URL}/orders/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(orderDetails),
+      });
+
+      if (!result.ok) {
+        throw new Error("Error");
+      }
+
+      const dataR = await result.json();
+      const shipment_id = dataR.shipment_id;
+      const order_id = dataR.order_id;
+
+      const result1 = await fetch(
+        `${API_BASE_URL}/orders/create/awb/${shipment_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!result1.ok) {
+        throw new Error("Error");
+      }
+
+      const result2 = await fetch(`${API_BASE_URL}/orders/cart/changestatus`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!result2.ok) {
+        throw new Error("Error");
+      }
+
+      const result3 = await fetch(
+        `${API_BASE_URL}/orders/invoice/${order_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!result3.ok) {
+        throw new Error("Error");
+      }
+
+      window.location.href = `/order?q=${encodeURIComponent(orderID)}`;
     } catch (err) {
       console.error(err);
     }
-
-    const orderDetails = {
-      order_id: "qweqweqwe",
-      order_date: getFormattedDateTime(),
-      pickup_location: "Home",
-      channel_id: "",
-      comment: "Test order",
-      billing_customer_name: "Naruto",
-      billing_last_name: "Uzumaki",
-      billing_address: "House 221B, Leaf Village",
-      billing_address_2: "Near Hokage House",
-      billing_city: "New Delhi",
-      billing_pincode: 110002,
-      billing_state: "Delhi",
-      billing_country: "India",
-      billing_email: "naruto@uzumaki.com",
-      billing_phone: "9876543210",
-      shipping_is_billing: false,
-      shipping_customer_name: "VBuy",
-      shipping_last_name: "",
-      shipping_address: "SGSITS College",
-      shipping_address_2: "",
-      shipping_city: "Indore",
-      shipping_pincode: "452003",
-      shipping_country: "India",
-      shipping_state: "Madhya Pradesh",
-      shipping_email: "vbuy@gmail.com",
-      shipping_phone: "9999999999",
-      order_items,
-      payment_method: "Prepaid",
-      shipping_charges: 0,
-      giftwrap_charges: 0,
-      transaction_charges: 0,
-      total_discount: 0,
-      sub_total: 9000,
-      length: 10,
-      breadth: 10,
-      height: 20,
-      weight: 1,
-    };
   });

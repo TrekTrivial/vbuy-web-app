@@ -209,6 +209,11 @@ label {
   background: #009000;
 }
 
+.order-btns {
+  display: flex;
+  align-items: center;
+}
+
 .cancel-order-btn {
   background: #ff4031;
   border-radius: 0.3rem;
@@ -226,4 +231,24 @@ label {
 
 .cancel-order-btn:hover {
   background: #9e0000;
+}
+
+.track-order-btn {
+  background: #00b000;
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  width: fit-content;
+  margin-left: 1rem;
+}
+
+.track-order-btn:link,
+.track-order-btn:visited {
+  color: white;
+}
+
+.track-order-btn:hover {
+  background: #009000;
 }
