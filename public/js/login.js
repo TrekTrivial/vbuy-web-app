@@ -21,12 +21,14 @@ document.querySelector(".login-btn").addEventListener("click", async e => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
     const data = await response.json();
 
     document.cookie = `token=${data.token}; path=/; max-age=86400; SameSite=Strict`;
-    window.location.href = "/dashboard";
+    alert("Logged in!");
+    window.location.href = "/";
   } catch (err) {}
 });

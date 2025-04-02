@@ -64,7 +64,8 @@ li {
 }
 
 .supp a,
-.track a {
+.track a,
+.about a {
   text-decoration: none;
   transition: all 0.2s;
 }
@@ -72,12 +73,15 @@ li {
 .supp a:link,
 .supp a:visited,
 .track a:link,
-.track a:visited {
+.track a:visited,
+.about a:link,
+.about a:visited {
   color: #4e525f;
 }
 
 .supp a:hover,
-.track a:hover {
+.track a:hover,
+.about a:hover {
   color: #6e727d;
 }
 
@@ -180,88 +184,6 @@ li {
   display: none;
   width: 8rem;
   position: relative;
-}
-
-.about {
-  position: relative;
-}
-
-.about p {
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
-
-.about-dropdown {
-  background: #f9ffd7;
-  width: 10rem;
-  height: 12rem;
-  padding-top: 2.2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 0.7rem;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-
-  position: absolute;
-  top: 1.5rem;
-  left: -1rem;
-
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-}
-
-.about:hover {
-  cursor: pointer;
-  color: #6e727d;
-}
-
-.about:hover .about-dropdown {
-  display: flex;
-  opacity: 1;
-  visibility: visible;
-}
-
-.about-arrow-down {
-  transition: transform 0.2s ease;
-}
-
-.about:hover .about-arrow-down {
-  transform: rotateZ(180deg);
-}
-
-.about-dropdown li {
-  margin-left: 0;
-  height: 3rem;
-  align-content: center;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-}
-
-.about-dropdown li:last-child {
-  border-radius: 0.7rem;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.about-dropdown li a {
-  text-decoration: none;
-  padding-left: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  width: 100%;
-}
-
-.about-dropdown li a:link,
-.about-dropdown li a:visited {
-  color: #4e525f;
-}
-
-.about-dropdown li:hover {
-  background: #d9debb;
-  cursor: pointer;
 }
 
 .dash-dropdown {

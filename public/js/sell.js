@@ -125,7 +125,7 @@ const displayResults = books => {
           </div>
 
           <div class="cost-price-container info-container">
-            <label class="cost-price-label">Cost price</label>
+            <label class="cost-price-label">Market price</label>
             <p class="cost-price">${
               costPrice === "N/A" ? "N/A" : `Rs. ${costPrice}`
             }</p>
@@ -189,6 +189,11 @@ const updatePaginationButtons = () => {
 const addToCart = async (isbn, vbuy_price) => {
   const token = getTokenFromCookies();
 
+  if (!isTokenValid(token)) {
+    alert("Unauthorized! Please login first!");
+    window.location.href = "/login";
+  }
+
   if (vbuy_price === "N/A") {
     alert("Price not available! Contact support!");
     return;
@@ -211,6 +216,7 @@ const addToCart = async (isbn, vbuy_price) => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 

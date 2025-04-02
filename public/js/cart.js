@@ -19,6 +19,7 @@ async function makeCartTable(cart) {
       });
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -47,6 +48,13 @@ async function makeCartTable(cart) {
 document.addEventListener("DOMContentLoaded", async e => {
   const token = getTokenFromCookies();
 
+  if (!isTokenValid(token)) {
+    document.querySelector(".empty-cart p").innerHTML = "Sign in to view cart.";
+    document.querySelector(".empty-cart").style.display = "block";
+    document.querySelector(".sub-cart-container").style.display = "none";
+    return;
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/carts`, {
       method: "GET",
@@ -59,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async e => {
     const data = await response.json();
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -69,6 +78,7 @@ document.addEventListener("DOMContentLoaded", async e => {
         ".cart-value"
       ).innerHTML = `Rs. ${data[0].cartTotal}.00`;
     } else {
+      document.querySelector(".empty-cart p").innerHTML = "Your cart is empty.";
       document.querySelector(".empty-cart").style.display = "block";
       document.querySelector(".sub-cart-container").style.display = "none";
     }
@@ -93,6 +103,7 @@ document.querySelector(".del-cart-btn").addEventListener("click", async e => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -124,6 +135,7 @@ const removeFromCart = async isbn => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 

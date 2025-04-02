@@ -1,12 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const { calculatePrice, getBookInfo } = require("../services/googlebooks");
-
-router.post("/calculate", (req, res) => {
-  const { customPrice } = req.body;
-  const costPrice = calculatePrice(customPrice, 0.3);
-  res.status(200).send({ costPrice });
-});
+const db = require("../db").db;
 
 router.get("/book/:isbn", async (req, res) => {
   const { isbn } = req.params;

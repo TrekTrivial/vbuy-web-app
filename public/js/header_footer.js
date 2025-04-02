@@ -26,6 +26,7 @@ window.addEventListener("DOMContentLoaded", function () {
           });
 
           if (!response.ok) {
+            alert("Something went wrong!");
             throw new Error("Error");
           }
 
@@ -42,7 +43,7 @@ window.addEventListener("DOMContentLoaded", function () {
 setTimeout(() => {
   const token = getTokenFromCookies();
 
-  if (token) {
+  if (isTokenValid(token)) {
     document.querySelector(".dashboard").style.display = "flex";
     document.querySelector(".log-reg").style.display = "none";
   } else {

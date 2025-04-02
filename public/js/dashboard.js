@@ -25,16 +25,37 @@ function addTicketRow(ticket) {
           <td>${ticket.ticketID}</td>
           <td>${ticket.issueSubject}</td>
           <td>${ticket.issueMessage}</td>
-          <td>${ticket.replyMessage}</td>
+          <td>${ticket.replyMessage === null ? "N/A" : ticket.replyMessage}</td>
           <td>${ticket.ticketStatus}</td>
-          <td><a href="">View ticket</a></td>
+          <td><a href="/ticket?q=${encodeURIComponent(
+            ticket.ticketID
+          )}">View ticket</a></td>
       `;
 
   table.appendChild(row);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const activeTab = params.get("tab");
+
+  if (activeTab) {
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.style.display = "none";
+    });
+
+    const tabToShow = document.querySelector(`.tab.${activeTab}`);
+    if (tabToShow) {
+      tabToShow.style.display = "flex";
+    }
+  }
+
   const token = getTokenFromCookies();
+
+  if (!isTokenValid(token)) {
+    alert("Unauthorized! Please log in first!");
+    window.location.href = "/login";
+  }
 
   const otpInputs = document.querySelectorAll(".otp");
 
@@ -66,6 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -86,6 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (!response1.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -107,6 +130,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (!response2.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -140,12 +164,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     });
 
-    if (response3.status === 404) {
+    if (!response3.ok) {
+      alert("Something went wrong!");
+      throw new Error("Error");
+    }
+
+    const data3 = await response3.json();
+    if (data3.length === 0) {
       document.querySelector(".no-orders").style.display = "block";
       document.querySelector(".sub-order-container").style.display = "none";
-    } else if (!response3.ok) {
-      throw new Error("Error");
-    } else if (response3.ok) {
+    } else if (data3.length > 0) {
       document.querySelector(".no-orders").style.display = "none";
       document.querySelector(".sub-order-container").style.display = "block";
       const data3 = await response3.json();
@@ -164,6 +192,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.querySelector(".no-tickets").style.display = "block";
       document.querySelector(".sub-ticket-container").style.display = "none";
     } else if (!response4.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     } else if (response4.ok) {
       document.querySelector(".no-tickets").style.display = "none";
@@ -380,6 +409,7 @@ document.querySelector(".del-cfm-btn").addEventListener("click", async e => {
     const data = await response.json();
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -424,6 +454,7 @@ document.querySelector(".change-email").addEventListener("click", e => {
       });
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -471,6 +502,7 @@ document.querySelector(".change-email").addEventListener("click", e => {
             return;
           }
           if (!response1.ok) {
+            alert("Something went wrong!");
             throw new Error("Error");
           }
 
@@ -486,6 +518,7 @@ document.querySelector(".change-email").addEventListener("click", e => {
           });
 
           if (!response2.ok) {
+            alert("Something went wrong!");
             throw new Error("Error");
           }
 
@@ -537,6 +570,7 @@ document.querySelector(".change-mobile").addEventListener("click", e => {
       });
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -577,6 +611,7 @@ document.querySelector(".change-pwd").addEventListener("click", e => {
           document.querySelector(".old-pwd-error").style.visibility = "visible";
           return;
         } else if (!response.ok) {
+          alert("Something went wrong!");
           throw new Error("Error");
         }
 
@@ -622,6 +657,7 @@ document.querySelector(".change-pwd").addEventListener("click", e => {
             });
 
             if (!response1.ok) {
+              alert("Something went wrong!");
               throw new Error("Error");
             }
 
@@ -692,6 +728,7 @@ document
       });
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -798,6 +835,7 @@ document
       );
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -842,6 +880,7 @@ document.querySelector(".bank-cfm-btn").addEventListener("click", async e => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -873,6 +912,7 @@ document.querySelector(".bank-cfm-btn").addEventListener("click", async e => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 

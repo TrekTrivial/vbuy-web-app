@@ -12,18 +12,18 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
+const adminRouter = require("./routers/admins");
 const userRouter = require("./routers/user");
 const cartRouter = require("./routers/cart");
 const orderRouter = require("./routers/order");
-const paymentRouter = require("./routers/payment");
 const warehouseRouter = require("./routers/warehouse");
 const calculatorRouter = require("./routers/calculator");
 const supportRouter = require("./routers/support");
 
+app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 app.use("/carts", cartRouter);
 app.use("/orders", orderRouter);
-app.use("/payments", paymentRouter);
 app.use("/warehouse", warehouseRouter);
 app.use("/calculator", calculatorRouter);
 app.use("/support", supportRouter);
@@ -68,16 +68,8 @@ app.get("/placeorder", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/placeorder.html"));
 });
 
-app.get("/privacy", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/privacy.html"));
-});
-
-app.get("/terms", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/terms.html"));
-});
-
-app.get("/faqs", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/faqs.html"));
+app.get("/ticket", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/ticket.html"));
 });
 
 app.get("/track", (req, res) => {

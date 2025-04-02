@@ -33,6 +33,7 @@ document.querySelector(".available-btn").addEventListener("click", async e => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -76,34 +77,56 @@ document.querySelector(".verify-btn").addEventListener("click", async e => {
     return;
   }
 
-  const body = {
-    name: username.value,
-    email: email.value,
-  };
-
   try {
-    const response = await fetch(`${API_BASE_URL}/user/request_otp`, {
-      method: "POST",
+    const result = await fetch(`${API_BASE_URL}/user/users/${email.value}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
     });
 
-    if (!response.ok) {
+    if (!result.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
-    const data = await response.json();
+    const dataR = await result.json();
 
-    email.setAttribute("disabled", "true");
-    document.querySelector(".verify-btn").style.pointerEvents = "none";
-    document.querySelector(".otp-text").style.visibility = "visible";
-    document.querySelectorAll(".otp").forEach(input => {
-      input.removeAttribute("disabled");
-    });
-    document.querySelector(".otp-btn").style.pointerEvents = "auto";
-    document.querySelector(".resend-otp-btn").style.pointerEvents = "auto";
+    if (dataR.count == 0) {
+      const body = {
+        name: username.value,
+        email: email.value,
+      };
+
+      const response = await fetch(`${API_BASE_URL}/user/request_otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        alert("Something went wrong!");
+        throw new Error("Error");
+      }
+
+      const data = await response.json();
+
+      email.setAttribute("disabled", "true");
+      document.querySelector(".verify-btn").style.pointerEvents = "none";
+      document.querySelector(".otp-text").style.visibility = "visible";
+      document.querySelectorAll(".otp").forEach(input => {
+        input.removeAttribute("disabled");
+      });
+      document.querySelector(".otp-btn").style.pointerEvents = "auto";
+      document.querySelector(".resend-otp-btn").style.pointerEvents = "auto";
+    } else {
+      document.querySelector(".email-error span").innerHTML =
+        "Email is already registered!";
+      document.querySelector(".email-error").style.visibility = "visible";
+      return;
+    }
   } catch (err) {
     console.error(err);
   }
@@ -154,6 +177,7 @@ document.querySelector(".otp-btn").addEventListener("click", async e => {
       return;
     }
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -397,6 +421,7 @@ document.querySelector(".ifsc-btn").addEventListener("click", async e => {
     );
     console.log(response);
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -426,9 +451,6 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
     pincode: pincode.value,
   };
 
-  console.log(userDetails);
-  console.log(acc_type);
-
   try {
     if (acc_type === "vpa") {
       if (!validateBank("vpa")) {
@@ -451,6 +473,7 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
       console.log(response1);
 
       if (!response1.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -472,11 +495,13 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
       );
 
       if (!response2.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
       document.cookie = `token=${data1.token}; path=/; max-age=86400; SameSite=Strict`;
-      window.location.href = "dashboard.html";
+      alert("Registered successfully!");
+      window.location.href = "/";
     } else if (acc_type === "bank") {
       const bankDetails = {
         accountNumber: accountNumber.value,
@@ -497,6 +522,7 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
       console.log(response3);
 
       if (!response3.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -517,14 +543,14 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
         }
       );
 
-      console.log("hi");
-
       if (!response4.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
       document.cookie = `token=${data3.token}; path=/; max-age=86400; SameSite=Strict`;
-      window.location.href = "dashboard.html";
+      alert("Registered successfully!");
+      window.location.href = "/";
     }
   } catch (err) {
     console.error(err);

@@ -19,6 +19,7 @@ async function makeCartTable(cart) {
       });
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -53,6 +54,12 @@ function getFormattedDateTime() {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const token = getTokenFromCookies();
+
+  if (!isTokenValid(token)) {
+    alert("Unauthorized! Please log in first!");
+    window.location.href = "/login";
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/user/profile/address`, {
       method: "GET",
@@ -63,6 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (!response.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -80,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (!response1.ok) {
+      alert("Something went wrong!");
       throw new Error("Error");
     }
 
@@ -115,6 +124,7 @@ document
       });
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -129,6 +139,7 @@ document
       });
 
       if (!response1.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -147,6 +158,7 @@ document
       });
 
       if (!response2.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -164,6 +176,7 @@ document
       });
 
       if (!response3.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -236,6 +249,7 @@ document
       });
 
       if (!result.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -255,6 +269,7 @@ document
       );
 
       if (!result1.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -267,6 +282,7 @@ document
       });
 
       if (!result2.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -282,6 +298,7 @@ document
       );
 
       if (!result3.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 

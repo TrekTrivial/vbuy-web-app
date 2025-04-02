@@ -7,6 +7,11 @@ document.querySelector(".order-id").innerHTML = `${orderID}`;
 
 const token = getTokenFromCookies();
 
+if (!isTokenValid(token)) {
+  alert("Unauthorized! Please log in first!");
+  window.location.href = "/login";
+}
+
 async function makeCartTable(cart) {
   const table = document.querySelector(".items-table");
 
@@ -26,6 +31,7 @@ async function makeCartTable(cart) {
       });
 
       if (!response.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 
@@ -56,6 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   if (!response.ok) {
+    alert("Something went wrong!");
     throw new Error("Error");
   }
 
@@ -78,6 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   if (!response1.ok) {
+    alert("Something went wrong!");
     throw new Error("Error");
   }
 
@@ -105,6 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   if (!response2.ok) {
+    alert("Something went wrong!");
     throw new Error("Error");
   }
 
@@ -122,6 +131,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   if (!response3.ok) {
+    alert("Something went wrong!");
     throw new Error("Error");
   }
 
@@ -140,6 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   if (!response4.ok) {
+    alert("Something went wrong!");
     throw new Error("Error");
   }
 
@@ -163,6 +174,7 @@ document
       });
 
       if (!result.ok) {
+        alert("Something went wrong!");
         throw new Error("Error");
       }
 

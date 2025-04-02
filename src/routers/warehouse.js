@@ -1,10 +1,10 @@
 const express = require("express");
 const router = new express.Router();
 const db = require("../db").db;
-// const { adminAuth } = require("../middleware/auth");
+const adminAuth = require("../middleware/adminAuth");
 const { getBookInfo, calculatePrice } = require("../services/googlebooks");
 
-router.post("/addbook", async (req, res) => {
+router.post("/addbook", adminAuth, async (req, res) => {
   const { isbn } = req.body;
   try {
     const Book = await getBookInfo(isbn);
@@ -40,7 +40,7 @@ router.post("/addbook", async (req, res) => {
   }
 });
 
-router.get("/books", async (req, res) => {
+router.get("/books", adminAuth, async (req, res) => {
   const sql = `SELECT * FROM BOOKS`;
   try {
     const [results] = await db.query(sql);
@@ -50,7 +50,7 @@ router.get("/books", async (req, res) => {
   }
 });
 
-router.get("/books/:isbn", async (req, res) => {
+router.get("/books/:isbn", adminAuth, async (req, res) => {
   const isbn = req.params.isbn;
   const sql = `SELECT * FROM BOOKS WHERE isbn=?`;
   try {
@@ -61,7 +61,7 @@ router.get("/books/:isbn", async (req, res) => {
   }
 });
 
-router.patch("/change_qty", async (req, res) => {
+router.patch("/change_qty", adminAuth, async (req, res) => {
   const { isbn, stockToBeAdded } = req.body;
 
   try {
@@ -79,7 +79,7 @@ router.patch("/change_qty", async (req, res) => {
   }
 });
 
-router.delete("/delete/:isbn", async (req, res) => {
+router.delete("/delete/:isbn", adminAuth, async (req, res) => {
   const isbn = req.params.isbn;
   const sql = `DELETE FROM BOOKS WHERE isbn=?`;
   try {

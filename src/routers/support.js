@@ -25,37 +25,7 @@ router.post("/raise", auth, async (req, res) => {
     await db.query(sql, [ticketID, id, issueSubject, issueMessage, "Open"]);
 
     await supportEmail(name, email, ticketID);
-    res.status(200).send({ message: "Ticket raised" });
-  } catch (e) {
-    res.status(500).send({ error: "Database error", e });
-  }
-});
-
-router.patch("/reply/:ticketID", async (req, res) => {
-  const { ticketID } = req.params;
-  const { reply } = req.body;
-
-  try {
-    const [result] = await db.query(
-      `SELECT userID FROM SUPPORT WHERE ticketID=?`,
-      [ticketID]
-    );
-    const ticket = result[0];
-
-    const [results] = await db.query(
-      `SELECT firstName, lastName, email FROM USERS WHERE userID=?`,
-      [ticket.userID]
-    );
-    const user = results[0];
-
-    const sql = `UPDATE SUPPORT SET replyMessage=?, ticketStatus=? WHERE ticketID=?`;
-    await db.query(sql, [reply, "Closed", ticketID]);
-
-    const name = user.firstName + " " + user.lastName;
-    const email = user.email;
-    await supportReply(name, email, reply, ticketID);
-
-    res.status(200).send({ message: "Ticket resolved" });
+    res.status(200).send({ message: "Ticket raised", ticketID });
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }
@@ -73,6 +43,23 @@ router.get("/tickets", auth, async (req, res) => {
       return res.status(404).send({ error: "No tickets found" });
     }
     res.status(200).send(results);
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.get("/tickets/:ticketID", auth, async (req, res) => {
+  const { ticketID } = req.params;
+
+  try {
+    const [results] = await db.query(`SELECT * FROM SUPPORT WHERE ticketID=?`, [
+      ticketID,
+    ]);
+
+    if (results.length === 0) {
+      return res.status(404).send({ error: "No tickets found" });
+    }
+    res.status(200).send(results[0]);
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
   }

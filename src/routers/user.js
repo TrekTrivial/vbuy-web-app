@@ -103,9 +103,9 @@ router.post("/verify_otp", async (req, res) => {
 
 router.post("/debug_queries", async (req, res) => {
   try {
-    const data = await db.query(
-      `ALTER TABLE CART MODIFY COLUMN cartID VARCHAR(40)`
-    );
+    const data = await db.query(`SELECT * FROM USERS WHERE email=?`, [
+      "koxave2376@motivue.com",
+    ]);
     console.log(data[0]);
     // const test = data[0].cartTotal;
     // console.log(Number(test));
@@ -121,6 +121,8 @@ router.post("/login", async (req, res) => {
   const sql = `SELECT * FROM USERS WHERE userID=?`;
   try {
     const [result] = await db.query(sql, [userID]);
+
+    console.log(result);
 
     if (result.length === 0) {
       return res.status(403).send({ error: "Invalid credentials" });
@@ -209,16 +211,6 @@ router.get("/profile/address", auth, async (req, res) => {
   }
 });
 
-router.get("/all", async (req, res) => {
-  const sql = `SELECT userID FROM USERS`;
-  try {
-    const [results] = await db.query(sql);
-    res.status(200).send({ results });
-  } catch (e) {
-    res.status(500).send({ error: "Database error", e });
-  }
-});
-
 router.get("/user/:userID", async (req, res) => {
   const { userID } = req.params;
   const sql = `SELECT COUNT(*) AS count FROM USERS WHERE userID=?`;
@@ -227,6 +219,20 @@ router.get("/user/:userID", async (req, res) => {
     res.status(200).send({ count: results[0].count });
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.get("/users/:email", async (req, res) => {
+  const { email } = req.params;
+  console.log(email);
+  try {
+    const [results] = await db.query(
+      `SELECT COUNT(*) as count FROM USERS WHERE email=?`,
+      [email.toLowerCase()]
+    );
+    res.status(200).send({ count: results[0].count });
+  } catch (e) {
+    res.status(500).send({ error: "Database error", e: e.message });
   }
 });
 
