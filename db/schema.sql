@@ -108,4 +108,4 @@ CREATE TABLE IF NOT EXISTS ADMINS (
     adminPass VARCHAR(30) NOT NULL,
     tokens JSON NOT NULL,
     PRIMARY KEY (adminID)
-)
+);
