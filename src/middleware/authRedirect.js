@@ -17,7 +17,6 @@ const redirectIfAuthenticated = (req, res, next) => {
       return next();
     }
 
-    console.log(req.headers);
     return res.redirect(req.headers.referer || "/dashboard");
   });
 };

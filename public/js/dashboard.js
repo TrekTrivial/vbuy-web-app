@@ -114,8 +114,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const data1 = await response1.json();
 
-    console.log(data1);
-
     document.querySelector(".street").value = data1.street;
     document.querySelector(".city").value = data1.city;
     document.querySelector(".state").value = data1.state;
@@ -403,8 +401,6 @@ document.querySelector(".del-cfm-btn").addEventListener("click", async e => {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    console.log(response);
 
     const data = await response.json();
 

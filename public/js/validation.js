@@ -419,7 +419,7 @@ document.querySelector(".ifsc-btn").addEventListener("click", async e => {
         },
       }
     );
-    console.log(response);
+
     if (!response.ok) {
       alert("Something went wrong!");
       throw new Error("Error");
@@ -470,8 +470,6 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
         body: JSON.stringify(userDetails),
       });
 
-      console.log(response1);
-
       if (!response1.ok) {
         alert("Something went wrong!");
         throw new Error("Error");
@@ -509,8 +507,6 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
         accountHolderName: accountHolderName.value,
       };
 
-      console.log(bankDetails);
-
       const response3 = await fetch(`${API_BASE_URL}/user/register`, {
         method: "POST",
         headers: {
@@ -518,8 +514,6 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
         },
         body: JSON.stringify(userDetails),
       });
-
-      console.log(response3);
 
       if (!response3.ok) {
         alert("Something went wrong!");

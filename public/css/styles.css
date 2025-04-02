@@ -100,8 +100,8 @@ body {
 
 .logos-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin: 0 10rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 15rem;
   justify-items: center;
   align-items: center;
 }

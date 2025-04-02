@@ -55,8 +55,6 @@ router.post("/debug_queries", adminAuth, async (req, res) => {
       "koxave2376@motivue.com",
     ]);
     console.log(data[0]);
-    // const test = data[0].cartTotal;
-    // console.log(Number(test));
     res.send();
   } catch (e) {
     console.log(e);

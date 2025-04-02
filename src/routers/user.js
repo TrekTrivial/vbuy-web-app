@@ -12,7 +12,6 @@ const {
 } = require("../utils/email");
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
   const {
     userID,
     firstName,
@@ -54,8 +53,6 @@ router.post("/register", async (req, res) => {
       state_,
       pincode,
     ]);
-
-    console.log("hi");
 
     await sendWelcomeEmail(name, email);
     await db.query("DELETE FROM OTP_VERIFICATION WHERE email = ?", [email]);
@@ -107,8 +104,6 @@ router.post("/login", async (req, res) => {
   const sql = `SELECT * FROM USERS WHERE userID=?`;
   try {
     const [result] = await db.query(sql, [userID]);
-
-    console.log(result);
 
     if (result.length === 0) {
       return res.status(403).send({ error: "Invalid credentials" });
@@ -210,7 +205,7 @@ router.get("/user/:userID", async (req, res) => {
 
 router.get("/users/:email", async (req, res) => {
   const { email } = req.params;
-  console.log(email);
+
   try {
     const [results] = await db.query(
       `SELECT COUNT(*) as count FROM USERS WHERE email=?`,

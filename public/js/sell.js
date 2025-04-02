@@ -5,7 +5,7 @@ let search_results = document.querySelector(".search-results-container");
 let prevBtn = document.getElementById("prev-btn");
 let nextBtn = document.getElementById("next-btn");
 
-const resultsPerPage = 10; // Number of results per page
+const resultsPerPage = 10;
 let currentPage = 0;
 let totalResults = 0;
 
@@ -163,7 +163,7 @@ document.querySelector(".search-btn").addEventListener("click", async e => {
     return;
   }
 
-  currentPage = 0; // Reset to first page on new search
+  currentPage = 0;
   fetchBooks(queryElement.value.trim(), currentPage);
 });
 

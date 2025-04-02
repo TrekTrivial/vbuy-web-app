@@ -61,8 +61,6 @@ document
 
       const data = await response.json();
 
-      console.log(data);
-
       if (response.ok) {
         alert("Support ticket created!");
         window.location.href = `/ticket?q=${encodeURIComponent(data.ticketID)}`;

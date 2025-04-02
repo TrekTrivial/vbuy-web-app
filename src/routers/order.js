@@ -19,8 +19,6 @@ router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
       [id]
     );
 
-    console.log(user);
-
     const name = user[0].firstName + " " + user[0].lastName;
 
     const [result] = await db.query(
@@ -30,8 +28,6 @@ router.post("/create", shipping.getAuthTokenSR, auth, async (req, res) => {
 
     let count = 0;
     result[0].quantity.forEach(num => (count += num));
-
-    console.log(result);
 
     const response = await shipping.createOrder(SRtoken, orderDetails);
     const sql1 = `INSERT INTO ORDERS (orderID, userID, cartID, item_count, orderTotal, orderDate, orderStatus) VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -178,10 +174,6 @@ router.get("/myorders", auth, async (req, res) => {
       id,
     ]);
 
-    // if (result.length === 0) {
-    //   res.status(200).send({ message: "NIL" });
-    //   return;
-    // }
     res.status(200).send(result);
   } catch (e) {
     res.status(500).send({ error: "Database error", e: e.message });
@@ -196,10 +188,6 @@ router.get("/myorders/:orderID", auth, async (req, res) => {
       orderID,
     ]);
 
-    // if (result.length === 0) {
-    //   res.status(200).send({ message: "NIL" });
-    //   return;
-    // }
     res.status(200).send(result[0]);
   } catch (e) {
     res.status(500).send({ error: "Database error", e: e.message });
