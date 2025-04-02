@@ -82,6 +82,7 @@ label {
 
 .book-image {
   width: 8rem;
+  max-width: 100%;
 }
 
 .search-btn {
