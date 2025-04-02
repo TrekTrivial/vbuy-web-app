@@ -17,7 +17,7 @@ router.post("/login", async (req, res) => {
       return res.status(403).send({ error: "Invalid credentials!" });
     }
     const token = jwt.sign({ id: username }, process.env.JWT_SECRET_ADMIN, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      expiresIn: "7d",
     });
     await db.query(
       `UPDATE ADMINS SET tokens=JSON_ARRAY_APPEND(tokens, '$', ?)`,
@@ -46,6 +46,20 @@ router.get("/all", adminAuth, async (req, res) => {
     res.status(200).send({ results });
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.post("/debug_queries", adminAuth, async (req, res) => {
+  try {
+    const data = await db.query(`SELECT * FROM USERS WHERE email=?`, [
+      "koxave2376@motivue.com",
+    ]);
+    console.log(data[0]);
+    // const test = data[0].cartTotal;
+    // console.log(Number(test));
+    res.send();
+  } catch (e) {
+    console.log(e);
   }
 });
 

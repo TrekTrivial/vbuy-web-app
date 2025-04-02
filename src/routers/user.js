@@ -101,20 +101,6 @@ router.post("/verify_otp", async (req, res) => {
   }
 });
 
-router.post("/debug_queries", async (req, res) => {
-  try {
-    const data = await db.query(`SELECT * FROM USERS WHERE email=?`, [
-      "koxave2376@motivue.com",
-    ]);
-    console.log(data[0]);
-    // const test = data[0].cartTotal;
-    // console.log(Number(test));
-    res.send();
-  } catch (e) {
-    console.log(e);
-  }
-});
-
 router.post("/login", async (req, res) => {
   const { userID, password } = req.body;
 
