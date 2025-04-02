@@ -68,8 +68,6 @@ CREATE TABLE IF NOT EXISTS ORDERS (
 
 CREATE TABLE IF NOT EXISTS BANK_ACCOUNT (
     accountID VARCHAR(40) NOT NULL,
-    contact_id VARCHAR(30),
-    fund_account_id VARCHAR(30),
     userID VARCHAR(20) NOT NULL,
     vpaID VARCHAR(50),
     accountNumber VARCHAR(30),
