@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const adminAuth = require("../middleware/adminAuth");
 const { supportReply } = require("../utils/email");
 const { calculatePrice } = require("../services/googlebooks");
+const gateway = require("../services/razorpay");
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -88,6 +89,64 @@ router.patch("/reply/:ticketID", adminAuth, async (req, res) => {
     res.status(200).send({ message: "Ticket resolved" });
   } catch (e) {
     res.status(500).send({ error: "Database error", e });
+  }
+});
+
+router.post("/payments/transfer/bank", adminAuth, async (req, res) => {
+  const { id, orderID } = req.body;
+
+  try {
+    const [account] = await db.query(
+      `SELECT fund_account_id FROM BANK_ACCOUNT WHERE userID=?`,
+      [id]
+    );
+    const fund_account_id = account[0].fund_account_id;
+
+    const [order] = await db.query(
+      `SELECT orderTotal FROM ORDERS WHERE orderID=?`,
+      [orderID]
+    );
+    const amount = order[0].orderTotal;
+
+    const payout_id = await gateway.makePayoutBank(fund_account_id, amount);
+
+    await db.query(
+      `UPDATE PAYMENTS SET transactionID=?, paymentStatus=? where orderID=?`,
+      [payout_id, "completed", orderID]
+    );
+    res.status(200).send({ message: "Payout successful" });
+  } catch (e) {
+    res.status(500).send({ error: "Error making payout", e });
+  }
+});
+
+router.post("/payments/transfer/vpa", adminAuth, async (req, res) => {
+  const { id, orderID } = req.body;
+
+  try {
+    const [account] = await db.query(
+      `SELECT fund_account_id FROM BANK_ACCOUNT WHERE userID=?`,
+      [id]
+    );
+    console.log(account[0]);
+    const fund_account_id = account[0].fund_account_id;
+
+    const [order] = await db.query(
+      `SELECT orderTotal FROM ORDERS WHERE orderID=?`,
+      [orderID]
+    );
+    const amount = order[0].orderTotal;
+
+    const payout_id = await gateway.makePayoutVPA(fund_account_id, amount);
+
+    await db.query(
+      `UPDATE PAYMENTS SET transactionID=?, paymentStatus=? where orderID=?`,
+      [payout_id, "completed", orderID]
+    );
+
+    res.status(200).send({ message: "Payout successful" });
+  } catch (e) {
+    res.status(500).send({ error: "Error making payout", e: e.message });
   }
 });
 

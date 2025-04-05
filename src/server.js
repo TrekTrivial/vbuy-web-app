@@ -19,6 +19,7 @@ const orderRouter = require("./routers/order");
 const warehouseRouter = require("./routers/warehouse");
 const calculatorRouter = require("./routers/calculator");
 const supportRouter = require("./routers/support");
+const paymentRouter = require("./routers/payment");
 
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
@@ -27,6 +28,7 @@ app.use("/orders", orderRouter);
 app.use("/warehouse", warehouseRouter);
 app.use("/calculator", calculatorRouter);
 app.use("/support", supportRouter);
+app.use("/payment", paymentRouter);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
