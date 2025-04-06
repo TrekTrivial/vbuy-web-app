@@ -306,29 +306,9 @@ body {
   font-size: 1rem;
   font-weight: 600;
   color: #23252c;
-  margin-right: 1rem;
 }
 
 .cookie-buttons button:hover {
   cursor: pointer;
   background: #f9ffd7;
-}
-
-.cookie-buttons a {
-  transition: all 0.2s;
-  border: 2px solid #fcffeb;
-  padding: 0.6rem 1.4rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.7rem;
-}
-
-.cookie-buttons a:link,
-.cookie-buttons a:visited {
-  text-decoration: none;
-  color: #fcffeb;
-}
-
-.cookie-buttons a:hover {
-  color: #f9ffd7;
 }
