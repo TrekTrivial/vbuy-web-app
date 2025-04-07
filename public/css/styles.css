@@ -281,7 +281,7 @@ body {
   bottom: 0;
   background: #23252c;
   color: #fcffeb;
-  width: 100%;
+  width: 100vw;
   height: 8.6rem;
   opacity: 0;
   visibility: hidden;
@@ -352,6 +352,19 @@ body {
   .isbn {
     height: 1.6rem;
     width: 58%;
+  }
+}
+
+@media (max-width: 74em) {
+  .cookie-banner p {
+    font-size: 0.9rem;
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+
+  .cookie-buttons button {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -459,6 +472,20 @@ body {
   }
 }
 
+@media (max-width: 56em) {
+  .cookie-banner p {
+    font-size: 0.9rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .cookie-buttons button {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 49em) {
   .sell-container {
     display: flex;
@@ -537,6 +564,22 @@ body {
   }
 }
 
+@media (max-width: 45em) {
+  .cookie-banner p {
+    font-size: 0.85rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-bottom: 0.4rem;
+    margin-top: 0.3rem;
+    line-height: 1.4rem;
+  }
+
+  .cookie-buttons button {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 39em) {
   .hero-section {
     min-height: 32rem;
@@ -583,6 +626,22 @@ body {
 @media (max-width: 35em) {
   .sell-container {
     padding: 3.6rem 0;
+  }
+}
+
+@media (max-width: 29em) {
+  .cookie-banner p {
+    font-size: 0.8rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.3rem;
+    line-height: 1.3rem;
+  }
+
+  .cookie-buttons button {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
 
