@@ -74,7 +74,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   data[0].quantity.forEach(num => (totalItems += num));
 
   document.querySelector(".order-count").innerHTML = totalItems;
-  document.querySelector(".order-total").innerHTML = data[0].cartTotal;
+  document.querySelector(
+    ".order-total"
+  ).innerHTML = `Rs. ${data[0].cartTotal}.00`;
 
   const response1 = await fetch(`${API_BASE_URL}/orders/shipping/${orderID}`, {
     method: "GET",
