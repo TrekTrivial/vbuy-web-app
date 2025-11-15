@@ -69,7 +69,7 @@ router.post("/request_otp", async (req, res) => {
     const { otp, expires_at } = await sendOTPemail(name, email);
     await db.query(
       `INSERT INTO OTP_VERIFICATION (email, OTP, EXPIRES_AT) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE OTP = ?, EXPIRES_AT = ?`,
-      [email, otp, expires_at, otp, expires_at]
+      [email, otp, expires_at, otp, expires_at],
     );
     res.status(200).send({ message: "OTP sent" });
   } catch (e) {
@@ -82,7 +82,7 @@ router.post("/verify_otp", async (req, res) => {
   try {
     const [otpRows] = await db.query(
       "SELECT OTP, EXPIRES_AT FROM OTP_VERIFICATION WHERE email = ?",
-      [email]
+      [email],
     );
 
     if (otpRows.length === 0 || otpRows[0].OTP !== otp) {
@@ -119,12 +119,12 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { id: user.userID, email: user.email },
       process.env.JWT_SECRET_USER,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      { expiresIn: process.env.JWT_EXPIRES_IN },
     );
 
     const response = await db.query(
       `UPDATE USERS SET tokens=JSON_ARRAY_APPEND(tokens, '$', ?)`,
-      [token]
+      [token],
     );
 
     res.status(200).send({ message: "Logged in", token });
@@ -209,7 +209,7 @@ router.get("/users/:email", async (req, res) => {
   try {
     const [results] = await db.query(
       `SELECT COUNT(*) as count FROM USERS WHERE email=?`,
-      [email.toLowerCase()]
+      [email.toLowerCase()],
     );
     res.status(200).send({ count: results[0].count });
   } catch (e) {
@@ -243,7 +243,7 @@ router.patch("/update", auth, async (req, res) => {
 
   try {
     const fields = Object.keys(updates).filter(field =>
-      allowedUpdates.includes(field)
+      allowedUpdates.includes(field),
     );
     var values = Object.values(updates);
 
@@ -290,7 +290,7 @@ router.delete("/delete", auth, async (req, res) => {
   try {
     const [result] = await db.query(
       `SELECT firstName, lastName FROM USERS WHERE userID=?`,
-      [id]
+      [id],
     );
     const name = result[0].firstName + " " + result[0].lastName;
     await db.query(sql, [id]);
@@ -378,11 +378,14 @@ router.patch("/bank_details/modify", auth, async (req, res) => {
 
 router.get("/validate_ifsc/:ifsc", async (req, res) => {
   const { ifsc } = req.params;
+  console.log(ifsc);
   try {
+    console.log("hello");
     const { bank, branch, state } = await getBankDetails(ifsc);
+    console.log(bank, branch, state);
     res.status(200).send({ bank_branch: bank + ", " + branch + ", " + state });
   } catch (e) {
-    res.status(500).send({ e });
+    res.status(500).send(e);
   }
 });
 
