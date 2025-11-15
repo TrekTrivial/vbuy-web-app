@@ -1,10 +1,10 @@
 const axios = require("axios");
 
 const getBookInfo = async isbn => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+  const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&country=IN`;
   try {
     const { data } = await axios.get(url);
-    console.log(data.items[0].saleInfo);
+
     if (data.totalItems === 0) {
       return undefined;
     }
