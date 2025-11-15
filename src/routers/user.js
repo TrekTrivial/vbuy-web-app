@@ -378,11 +378,8 @@ router.patch("/bank_details/modify", auth, async (req, res) => {
 
 router.get("/validate_ifsc/:ifsc", async (req, res) => {
   const { ifsc } = req.params;
-  console.log(ifsc);
   try {
-    console.log("hello");
     const { bank, branch, state } = await getBankDetails(ifsc);
-    console.log(bank, branch, state);
     res.status(200).send({ bank_branch: bank + ", " + branch + ", " + state });
   } catch (e) {
     res.status(500).send(e);
