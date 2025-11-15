@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const getBookInfo = async isbn => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=${isbn}`;
+  const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
   try {
     const { data } = await axios.get(url);
     if (data.totalItems === 0) {

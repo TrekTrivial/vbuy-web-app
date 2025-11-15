@@ -33,10 +33,7 @@ const sendOTPemail = async (name, email) => {
     const expires_at = Date.now() + 5 * 60 * 1000;
     return { otp, expires_at };
   } catch (e) {
-    console.error(
-      "Error creating order:",
-      e.response ? e.response.data : e.message
-    );
+    console.error("Error sending OTP:", e);
     throw new Error(e);
   }
 };

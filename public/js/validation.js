@@ -417,7 +417,7 @@ document.querySelector(".ifsc-btn").addEventListener("click", async e => {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -489,7 +489,7 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
             type: "vpa",
             bankDetails,
           }),
-        }
+        },
       );
 
       if (!response2.ok) {
@@ -534,7 +534,7 @@ document.querySelector(".bank-next-btn").addEventListener("click", async e => {
             type: "bank",
             bankDetails,
           }),
-        }
+        },
       );
 
       if (!response4.ok) {

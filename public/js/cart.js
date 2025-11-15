@@ -24,6 +24,7 @@ async function makeCartTable(cart) {
       }
 
       const details = await response.json();
+      console.log(details);
 
       row.innerHTML = `
       <td>${i + 1}</td>
@@ -74,9 +75,8 @@ document.addEventListener("DOMContentLoaded", async e => {
     if (data.length === 1) {
       makeCartTable(data[0]);
       document.querySelector(".cart-id").innerHTML = `${data[0].cartID}`;
-      document.querySelector(
-        ".cart-value"
-      ).innerHTML = `Rs. ${data[0].cartTotal}.00`;
+      document.querySelector(".cart-value").innerHTML =
+        `Rs. ${data[0].cartTotal}.00`;
     } else {
       document.querySelector(".empty-cart p").innerHTML = "Your cart is empty.";
       document.querySelector(".empty-cart").style.display = "block";
