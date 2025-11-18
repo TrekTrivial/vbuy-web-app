@@ -24,7 +24,6 @@ async function makeCartTable(cart) {
       }
 
       const details = await response.json();
-      console.log(details);
 
       row.innerHTML = `
       <td>${i + 1}</td>

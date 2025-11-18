@@ -39,7 +39,7 @@ const createOrder = async (token, orderDetails) => {
       orderDetails,
       {
         headers: { Authorization: `Bearer ${token}` },
-      }
+      },
     );
     return response.data;
   } catch (e) {
@@ -55,7 +55,7 @@ const cancelOrder = async (token, order_id) => {
       { ids: order_id },
       {
         headers: { Authorization: `Bearer ${token}` },
-      }
+      },
     );
     return response.data;
   } catch (e) {
@@ -70,7 +70,7 @@ const generateShipment = async (token, shipment_id) => {
       { shipment_id, status: "reassign" },
       {
         headers: { Authorization: `Bearer ${token}` },
-      }
+      },
     );
     return response.data;
   } catch (e) {
@@ -86,7 +86,7 @@ const cancelShipment = async (token, awbs) => {
       { awbs: [awbs] },
       {
         headers: { Authorization: `Bearer ${token}` },
-      }
+      },
     );
     return response.data;
   } catch (e) {
@@ -102,7 +102,7 @@ const generateInvoice = async (token, order_id) => {
       { ids: order_id },
       {
         headers: { Authorization: `Bearer ${token}` },
-      }
+      },
     );
     return response.data;
   } catch (e) {

@@ -10,10 +10,8 @@ body {
 
 .hero-section {
   min-height: 30rem;
-  background-image: linear-gradient(
-      rgba(34, 34, 34, 0.4),
-      rgba(34, 34, 34, 0.4)
-    ),
+  background-image:
+    linear-gradient(rgba(34, 34, 34, 0.4), rgba(34, 34, 34, 0.4)),
     url("../img/bg.jpg");
   background-size: cover;
   background-repeat: no-repeat, no-repeat;
@@ -110,12 +108,21 @@ body {
   justify-items: center;
   align-items: center;
   min-width: 60rem;
+  margin-top: 0.5rem;
 }
 
 .pwd-logo {
   width: 12rem;
   filter: brightness(0);
   opacity: 35%;
+}
+
+.sr-logo {
+  width: 15rem;
+}
+
+.aws-logo {
+  width: 6rem;
 }
 
 .features-container {
@@ -266,11 +273,8 @@ body {
 
 .sell-img-container {
   width: 28rem;
-  background-image: linear-gradient(
-      to right bottom,
-      rgba(0, 0, 0, 0.1),
-      rgba(0, 0, 0, 0.15)
-    ),
+  background-image:
+    linear-gradient(to right bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.15)),
     url("../img/book_ills.jpg");
   background-size: cover;
   background-position: center;
@@ -285,7 +289,9 @@ body {
   height: 8.6rem;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease-in-out, visibility 0.5s;
+  transition:
+    opacity 0.5s ease-in-out,
+    visibility 0.5s;
 }
 
 .cookie-banner.show {
