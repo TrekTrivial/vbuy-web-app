@@ -70,4 +70,4 @@ The project features a **custom RDBMS schema** designed to maintain data integri
 Currently, VBuy operates on a "sell-only" model. Future versions aim to introduce a buying feature, allowing users to purchase second-hand books directly from the platform.
 
 ---
-*This is a college minor project created for educational purposes.*
+
