@@ -2,9 +2,6 @@
 
 **VBuy** is a full-stack web application designed to provide a hassle-free solution for selling used books online. It eliminates the traditional "list-and-wait" model, offering users a fair price and a seamless selling experience with zero shipping charges.
 
-## Live Demo
-**[Visit VBuy](https://vbuy.onrender.com)**
-
 ---
 
 ## Problem Statement
@@ -68,6 +65,3 @@ The project features a **custom RDBMS schema** designed to maintain data integri
 
 ## Future Scope
 Currently, VBuy operates on a "sell-only" model. Future versions aim to introduce a buying feature, allowing users to purchase second-hand books directly from the platform.
-
----
-
